@@ -4,6 +4,8 @@
 
 mod protos;
 
+const FILE_DESCRIPTOR_SET: &[u8] = tonic::include_file_descriptor_set!("reapi_descriptor");
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let address = "[::1]:8080".parse().unwrap();
@@ -17,6 +19,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cas_service = remote_execution::ContentAddressableStorageService::default();
     let action_cache_service = remote_execution::ActionCacheService::default();
     let execution_service = remote_execution::ExecutionService::default();
+
+    let reflection_service = tonic_reflection::server::Builder::configure()
+        .register_encoded_file_descriptor_set(FILE_DESCRIPTOR_SET)
+        .build()
+        .unwrap();
 
     use crate::protos::build::bazel::remote::asset::v1::{
         fetch_server::FetchServer, push_server::PushServer,
@@ -36,6 +43,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .add_service(ContentAddressableStorageServer::new(cas_service))
         .add_service(ActionCacheServer::new(action_cache_service))
         .add_service(ExecutionServer::new(execution_service))
+        .add_service(reflection_service)
         .serve(address)
         .await?;
     Ok(())

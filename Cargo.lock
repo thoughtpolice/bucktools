@@ -614,6 +614,7 @@ dependencies = [
  "tokio-stream",
  "tonic",
  "tonic-build",
+ "tonic-reflection",
 ]
 
 [[package]]
@@ -828,6 +829,19 @@ dependencies = [
  "prost-build",
  "quote",
  "syn 1.0.109",
+]
+
+[[package]]
+name = "tonic-reflection"
+version = "0.9.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7c6980583b9694a05bb2deb0678f72c44564ff52b91cd22642f2f992cd8dd02f"
+dependencies = [
+ "prost",
+ "prost-types",
+ "tokio",
+ "tokio-stream",
+ "tonic",
 ]
 
 [[package]]
