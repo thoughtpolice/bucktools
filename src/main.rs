@@ -2,6 +2,8 @@
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+mod protos;
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let address = "[::1]:8080".parse().unwrap();
@@ -280,52 +282,6 @@ pub mod remote_logstream {
             _request: tonic::Request<QueryWriteStatusRequest>,
         ) -> Result<tonic::Response<QueryWriteStatusResponse>, tonic::Status> {
             unimplemented!()
-        }
-    }
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
-// Protobuf files, reflected as a Rust module hierarchy. These basically map 1-to-1 with the actual protobuf namespace.
-
-pub mod protos {
-    pub mod google {
-        pub mod api {
-            tonic::include_proto!("google.api");
-        }
-        pub mod bytestream {
-            tonic::include_proto!("google.bytestream");
-        }
-        pub mod longrunning {
-            tonic::include_proto!("google.longrunning");
-        }
-        pub mod rpc {
-            tonic::include_proto!("google.rpc");
-        }
-    }
-
-    pub mod build {
-        pub mod bazel {
-            pub mod remote {
-                pub mod asset {
-                    pub mod v1 {
-                        tonic::include_proto!("build.bazel.remote.asset.v1");
-                    }
-                }
-                pub mod execution {
-                    pub mod v2 {
-                        tonic::include_proto!("build.bazel.remote.execution.v2");
-                    }
-                }
-                pub mod logstream {
-                    pub mod v1 {
-                        tonic::include_proto!("build.bazel.remote.logstream.v1");
-                    }
-                }
-            }
-
-            pub mod semver {
-                tonic::include_proto!("build.bazel.semver");
-            }
         }
     }
 }
