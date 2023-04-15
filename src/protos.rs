@@ -1,6 +1,8 @@
 //! Protobuf files, reflected as a Rust module hierarchy. These basically map
 //! 1-to-1 with the actual protobuf namespace.ea
 
+// ---------------------------------------------------------------------------------------------------------------------
+
 pub mod google {
     pub mod api {
         tonic::include_proto!("google.api");
