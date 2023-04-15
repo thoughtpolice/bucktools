@@ -23,6 +23,11 @@ use crate::protos::build::bazel::remote::execution::v2::{
     FindMissingBlobsResponse, GetTreeRequest, GetTreeResponse,
 };
 
+use crate::protos::google::bytestream::{
+    byte_stream_server, QueryWriteStatusRequest, QueryWriteStatusResponse, ReadRequest,
+    ReadResponse, WriteRequest, WriteResponse,
+};
+
 use crate::protos::build::bazel::semver::SemVer;
 use crate::protos::google::longrunning;
 
@@ -167,5 +172,36 @@ impl capabilities_server::Capabilities for CapabilitiesService {
             high_api_version: Some(only_version.clone()),
         };
         Ok(tonic::Response::new(server_capabilities))
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+#[derive(Debug, Default)]
+pub struct ByteStreamService {}
+
+#[tonic::async_trait]
+impl byte_stream_server::ByteStream for ByteStreamService {
+    type ReadStream = ReceiverStream<Result<ReadResponse, tonic::Status>>;
+
+    async fn read(
+        &self,
+        _request: tonic::Request<ReadRequest>,
+    ) -> Result<tonic::Response<Self::ReadStream>, tonic::Status> {
+        unimplemented!()
+    }
+
+    async fn write(
+        &self,
+        _request: tonic::Request<tonic::Streaming<WriteRequest>>,
+    ) -> Result<tonic::Response<WriteResponse>, tonic::Status> {
+        unimplemented!()
+    }
+
+    async fn query_write_status(
+        &self,
+        _request: tonic::Request<QueryWriteStatusRequest>,
+    ) -> Result<tonic::Response<QueryWriteStatusResponse>, tonic::Status> {
+        unimplemented!()
     }
 }
