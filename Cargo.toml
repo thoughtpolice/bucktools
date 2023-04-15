@@ -10,11 +10,12 @@ authors = [
 [dependencies]
 prost = "0.11.9"
 prost-types = "0.11.9"
-tokio = { version = "1.27.0", features = ["macros", "rt-multi-thread"] }
+tokio = { version = "1.27.0", features = ["full", "tracing", "macros", "rt-multi-thread"] }
 tokio-stream = "0.1.12"
 tonic = "0.9.1"
 tonic-reflection = "0.9.1"
 tonic-health = "0.9.1"
+console-subscriber = "0.1.8"
 
 [build-dependencies]
 tonic-build = "0.9.1"

@@ -4,6 +4,7 @@
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    console_subscriber::init();
     let address = "[::1]:8080".parse().unwrap();
 
     reapi_grpc::start_reapi_grpc(address).await?;
