@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: © 2023 Austin Seipp
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 use std::{env, path::PathBuf};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {

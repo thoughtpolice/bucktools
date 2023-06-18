@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: © 2023 Austin Seipp
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 use std::{net::SocketAddr, time::Duration};
 
 use crate::protos::google::bytestream::byte_stream_server::ByteStreamServer;
@@ -18,11 +21,11 @@ pub async fn start_reapi_grpc(address: SocketAddr) -> Result<(), Box<dyn std::er
     let (health_reporter, health_service) = tonic_health::server::health_reporter();
     tokio::spawn(report_service_status(health_reporter.clone())); // XXX FIXME (aseipp)
 
-    let capabilities_service = remote_execution::CapabilitiesService::default();
     let cas_service = remote_execution::ContentAddressableStorageService::default();
     let action_cache_service = remote_execution::ActionCacheService::default();
-    let execution_service = remote_execution::ExecutionService::default();
     let bytestream_service = remote_execution::ByteStreamService::default();
+    let execution_service = remote_execution::ExecutionService::default();
+    let capabilities_service = remote_execution::CapabilitiesService::default();
     let reflection_service = tonic_reflection::server::Builder::configure()
         .register_encoded_file_descriptor_set(FILE_DESCRIPTOR_SET)
         .register_encoded_file_descriptor_set(tonic_health::pb::FILE_DESCRIPTOR_SET)

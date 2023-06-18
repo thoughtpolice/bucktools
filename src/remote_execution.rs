@@ -1,9 +1,12 @@
+// SPDX-FileCopyrightText: © 2023 Austin Seipp
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 use tokio_stream::wrappers::ReceiverStream;
 use tonic;
 
 use crate::protos::build::bazel::remote::execution::v2::priority_capabilities::PriorityRange;
 use crate::protos::build::bazel::remote::execution::v2::{
-    digest_function::Value::Blake3, execution_server,
+    digest_function::Value::Sha256, execution_server,
     symlink_absolute_path_strategy::Value::Allowed, CacheCapabilities, ExecuteRequest,
     ExecutionCapabilities, WaitExecutionRequest,
 };
@@ -119,64 +122,6 @@ impl content_addressable_storage_server::ContentAddressableStorage
     }
 }
 
-// ---------------------------------------------------------------------------------------------------------------------
-
-#[derive(Debug, Default)]
-pub struct CapabilitiesService {}
-
-#[tonic::async_trait]
-impl capabilities_server::Capabilities for CapabilitiesService {
-    async fn get_capabilities(
-        &self,
-        _request: tonic::Request<GetCapabilitiesRequest>,
-    ) -> Result<tonic::Response<ServerCapabilities>, tonic::Status> {
-        let digests = vec![Blake3.into()];
-
-        let only_version = SemVer {
-            major: 2,
-            minor: 0,
-            patch: 0,
-            prerelease: "".to_string(),
-        };
-
-        let cache_caps = CacheCapabilities {
-            digest_functions: digests.clone(),
-            action_cache_update_capabilities: Some(ActionCacheUpdateCapabilities {
-                update_enabled: true,
-            }),
-            cache_priority_capabilities: None,
-            max_batch_total_size_bytes: 4000000,
-            symlink_absolute_path_strategy: Allowed.into(),
-            supported_batch_update_compressors: vec![],
-            supported_compressors: vec![],
-        };
-
-        let exec_caps = ExecutionCapabilities {
-            digest_function: Blake3.into(),
-            digest_functions: digests.clone(),
-            exec_enabled: true,
-            supported_node_properties: vec![],
-            execution_priority_capabilities: Some(PriorityCapabilities {
-                priorities: vec![PriorityRange {
-                    min_priority: std::i32::MIN,
-                    max_priority: std::i32::MAX,
-                }],
-            }),
-        };
-
-        let server_capabilities = ServerCapabilities {
-            cache_capabilities: Some(cache_caps),
-            execution_capabilities: Some(exec_caps),
-            deprecated_api_version: None,
-            low_api_version: Some(only_version.clone()),
-            high_api_version: Some(only_version.clone()),
-        };
-        Ok(tonic::Response::new(server_capabilities))
-    }
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
-
 #[derive(Debug, Default)]
 pub struct ByteStreamService {}
 
@@ -205,3 +150,56 @@ impl byte_stream_server::ByteStream for ByteStreamService {
         unimplemented!()
     }
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+#[derive(Debug, Default)]
+pub struct CapabilitiesService {}
+
+#[tonic::async_trait]
+impl capabilities_server::Capabilities for CapabilitiesService {
+    async fn get_capabilities(
+        &self,
+        _request: tonic::Request<GetCapabilitiesRequest>,
+    ) -> Result<tonic::Response<ServerCapabilities>, tonic::Status> {
+        let digests = vec![Sha256.into()];
+
+        let only_version = SemVer {
+            major: 2,
+            minor: 0,
+            patch: 0,
+            prerelease: "".to_string(),
+        };
+
+        let cache_caps = CacheCapabilities {
+            digest_functions: digests.clone(),
+            action_cache_update_capabilities: Some(ActionCacheUpdateCapabilities {
+                update_enabled: true,
+            }),
+            cache_priority_capabilities: None,
+            max_batch_total_size_bytes: 4000000,
+            symlink_absolute_path_strategy: Allowed.into(),
+            supported_batch_update_compressors: vec![],
+            supported_compressors: vec![],
+        };
+
+        let exec_caps = ExecutionCapabilities {
+            digest_function: Sha256.into(),
+            digest_functions: digests.clone(),
+            exec_enabled: false,
+            supported_node_properties: vec![],
+            execution_priority_capabilities: None,
+        };
+
+        let server_capabilities = ServerCapabilities {
+            cache_capabilities: Some(cache_caps),
+            execution_capabilities: Some(exec_caps),
+            deprecated_api_version: None,
+            low_api_version: Some(only_version.clone()),
+            high_api_version: Some(only_version.clone()),
+        };
+        Ok(tonic::Response::new(server_capabilities))
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
