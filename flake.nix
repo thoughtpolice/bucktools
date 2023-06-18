@@ -27,7 +27,8 @@
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
           cargo-bloat protobuf my-rust-bin
-          grpcurl tokio-console
+          grpcurl tokio-console sqlite
+          pkg-config fuse
         ];
       };
     });
