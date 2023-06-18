@@ -21,19 +21,9 @@ pub mod google {
 pub mod build {
     pub mod bazel {
         pub mod remote {
-            pub mod asset {
-                pub mod v1 {
-                    tonic::include_proto!("build.bazel.remote.asset.v1");
-                }
-            }
             pub mod execution {
                 pub mod v2 {
                     tonic::include_proto!("build.bazel.remote.execution.v2");
-                }
-            }
-            pub mod logstream {
-                pub mod v1 {
-                    tonic::include_proto!("build.bazel.remote.logstream.v1");
                 }
             }
         }

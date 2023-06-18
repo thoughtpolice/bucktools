@@ -18,17 +18,11 @@ pub async fn start_reapi_grpc(address: SocketAddr) -> Result<(), Box<dyn std::er
     let (health_reporter, health_service) = tonic_health::server::health_reporter();
     tokio::spawn(report_service_status(health_reporter.clone())); // XXX FIXME (aseipp)
 
-    //let logstream_service = remote_logstream::LogStreamingService::default();
-    //let asset_fetching_service = remote_asset::AssetFetchingService::default();
-    //let asset_pushing_service = remote_asset::AssetPushingService::default();
-
     let capabilities_service = remote_execution::CapabilitiesService::default();
     let cas_service = remote_execution::ContentAddressableStorageService::default();
     let action_cache_service = remote_execution::ActionCacheService::default();
     let execution_service = remote_execution::ExecutionService::default();
-
     let bytestream_service = remote_execution::ByteStreamService::default();
-
     let reflection_service = tonic_reflection::server::Builder::configure()
         .register_encoded_file_descriptor_set(FILE_DESCRIPTOR_SET)
         .register_encoded_file_descriptor_set(tonic_health::pb::FILE_DESCRIPTOR_SET)
@@ -36,9 +30,6 @@ pub async fn start_reapi_grpc(address: SocketAddr) -> Result<(), Box<dyn std::er
         .unwrap();
 
     tonic::transport::Server::builder()
-        //.add_service(LogStreamServiceServer::new(logstream_service))
-        //.add_service(FetchServer::new(asset_fetching_service))
-        //.add_service(PushServer::new(asset_pushing_service))
         .add_service(CapabilitiesServer::new(capabilities_service))
         .add_service(ContentAddressableStorageServer::new(cas_service))
         .add_service(ActionCacheServer::new(action_cache_service))

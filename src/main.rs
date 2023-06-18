@@ -26,8 +26,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 mod protos;
 mod reapi_grpc;
-mod remote_asset;
 mod remote_execution;
-mod remote_logstream;
 
 // ---------------------------------------------------------------------------------------------------------------------
