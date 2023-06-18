@@ -17,6 +17,8 @@ tonic-reflection = "0.9.1"
 tonic-health = "0.9.1"
 console-subscriber = "0.1.8"
 
+clap = { version = "4.2.2", features = ["derive"] }
+
 [build-dependencies]
 tonic-build = "0.9.1"
 
