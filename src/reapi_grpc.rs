@@ -16,16 +16,16 @@ use crate::protos::build::bazel::remote::execution::v2::{
 const FILE_DESCRIPTOR_SET: &[u8] = tonic::include_file_descriptor_set!("reapi_descriptor");
 
 pub async fn start_reapi_grpc(address: SocketAddr) -> Result<(), Box<dyn std::error::Error>> {
-    use crate::remote_execution;
+    use crate::service;
 
     let (health_reporter, health_service) = tonic_health::server::health_reporter();
     tokio::spawn(report_service_status(health_reporter.clone())); // XXX FIXME (aseipp)
 
-    let cas_service = remote_execution::ContentAddressableStorageService::default();
-    let action_cache_service = remote_execution::ActionCacheService::default();
-    let bytestream_service = remote_execution::ByteStreamService::default();
-    let execution_service = remote_execution::ExecutionService::default();
-    let capabilities_service = remote_execution::CapabilitiesService::default();
+    let cas_service = service::ContentAddressableStorageService::default();
+    let action_cache_service = service::ActionCacheService::default();
+    let bytestream_service = service::ByteStreamService::default();
+    let execution_service = service::ExecutionService::default();
+    let capabilities_service = service::CapabilitiesService::default();
     let reflection_service = tonic_reflection::server::Builder::configure()
         .register_encoded_file_descriptor_set(FILE_DESCRIPTOR_SET)
         .register_encoded_file_descriptor_set(tonic_health::pb::FILE_DESCRIPTOR_SET)
@@ -46,23 +46,23 @@ pub async fn start_reapi_grpc(address: SocketAddr) -> Result<(), Box<dyn std::er
 }
 
 async fn report_service_status(mut reporter: tonic_health::server::HealthReporter) {
-    use crate::remote_execution;
+    use crate::service;
     loop {
         tokio::time::sleep(Duration::from_secs(1)).await;
         reporter
-            .set_serving::<CapabilitiesServer<remote_execution::CapabilitiesService>>()
+            .set_serving::<CapabilitiesServer<service::CapabilitiesService>>()
             .await;
         reporter
-        .set_serving::<ContentAddressableStorageServer<remote_execution::ContentAddressableStorageService>>()
-        .await;
-        reporter
-            .set_serving::<ActionCacheServer<remote_execution::ActionCacheService>>()
+            .set_serving::<ContentAddressableStorageServer<service::ContentAddressableStorageService>>()
             .await;
         reporter
-            .set_serving::<ExecutionServer<remote_execution::ExecutionService>>()
+            .set_serving::<ActionCacheServer<service::ActionCacheService>>()
             .await;
         reporter
-            .set_serving::<ByteStreamServer<remote_execution::ByteStreamService>>()
+            .set_serving::<ExecutionServer<service::ExecutionService>>()
+            .await;
+        reporter
+            .set_serving::<ByteStreamServer<service::ByteStreamService>>()
             .await;
     }
 }
