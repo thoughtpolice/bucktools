@@ -18,10 +18,7 @@
         overlays = [ (import rust-overlay) ];
       };
 
-    rust-version = pkgs.rust-bin.stable.latest.default;
-    my-rust-bin = rust-version.override {
-      extensions = [ "rust-analyzer" "rust-src" ];
-    };
+    my-rust-bin = pkgs.rust-bin.selectLatestNightlyWith (toolchain: toolchain.complete);
 
     in {
       devShells.default = pkgs.mkShell {
