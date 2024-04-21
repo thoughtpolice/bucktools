@@ -6,6 +6,7 @@ use std::{env, path::PathBuf};
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let protos = &[
         "./protos/google/bytestream/bytestream.proto",
+        "./protos/google/longrunning/operations.proto",
         "./protos/build/bazel/remote/execution/v2/remote_execution.proto",
         "./protos/build/bazel/semver/semver.proto",
     ];

@@ -10,6 +10,7 @@ use crate::protos::build::bazel::remote::execution::v2::{
     content_addressable_storage_server::ContentAddressableStorageServer,
     execution_server::ExecutionServer,
 };
+use crate::protos::google::longrunning::operations_server::OperationsServer;
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -26,6 +27,7 @@ pub async fn start_reapi_grpc(address: SocketAddr) -> Result<(), Box<dyn std::er
     let bytestream_service = service::ByteStreamService::default();
     let execution_service = service::ExecutionService::default();
     let capabilities_service = service::CapabilitiesService::default();
+    let operations_service = service::OperationsService::default();
     let reflection_service = tonic_reflection::server::Builder::configure()
         .register_encoded_file_descriptor_set(FILE_DESCRIPTOR_SET)
         .register_encoded_file_descriptor_set(tonic_health::pb::FILE_DESCRIPTOR_SET)
@@ -38,6 +40,7 @@ pub async fn start_reapi_grpc(address: SocketAddr) -> Result<(), Box<dyn std::er
         .add_service(ActionCacheServer::new(action_cache_service))
         .add_service(ExecutionServer::new(execution_service))
         .add_service(ByteStreamServer::new(bytestream_service))
+        .add_service(OperationsServer::new(operations_service))
         .add_service(health_service)
         .add_service(reflection_service)
         .serve(address)

@@ -15,3 +15,6 @@ pub use cas::ContentAddressableStorageService;
 
 mod execution;
 pub use execution::ExecutionService;
+
+mod operations;
+pub use operations::OperationsService;
