@@ -24,22 +24,10 @@
         libiconv
       ];
 
-      # work around https://github.com/nextest-rs/nextest/issues/267
-      # this needs to exist in both the devShell and preCheck phase!
-      darwinNextestHack = pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
-        export DYLD_FALLBACK_LIBRARY_PATH=$(${ourRustVersion}/bin/rustc --print sysroot)/lib
-      '';
-
-      # NOTE (aseipp): on Linux, go ahead and use mold by default to improve
-      # link times a bit; mostly useful for debug build speed, but will help
-      # over time if we ever get more dependencies, too
-      useMoldLinker = pkgs.stdenv.isLinux;
-
       # these are needed in both devShell and buildInputs
-      linuxNativeDeps = with pkgs; lib.optionals stdenv.isLinux [
+      linuxDeps = with pkgs; [
         mold-wrapped
       ];
-
     in {
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
@@ -48,14 +36,21 @@
           cargo-bloat protobuf
           grpcurl tokio-console sqlite
           pkg-config fuse
-        ] ++ darwinDeps ++ linuxNativeDeps;
-        shellHook = ''
+        ] ++ darwinDeps ++ linuxDeps;
+
+        shellHook = with pkgs; ''
           export RUST_BACKTRACE=1
-        '' + pkgs.lib.optionalString useMoldLinker ''
-          export RUSTFLAGS="--cfg tokio_unstable -C link-arg=-fuse-ld=mold"
-        '' + ''
-          export RUSTFLAGS="-Zthreads=0 $RUSTFLAGS -C link-arg=-Wl,--compress-debug-sections=zstd"
-        '' + darwinNextestHack;
+          export RUSTFLAGS="--cfg tokio_unstable -Zthreads=0"
+
+        '' + lib.optionalString stdenv.isLinux ''
+          export RUSTFLAGS+=" -C link-arg=-fuse-ld=mold -C link-arg=-Wl,--compress-debug-sections=zstd"
+
+        '' + lib.optionalString stdenv.isDarwin ''
+          # work around https://github.com/nextest-rs/nextest/issues/267
+          export DYLD_FALLBACK_LIBRARY_PATH=$(${ourRustVersion}/bin/rustc --print sysroot)/lib
+          # use new fast macOS linker
+          export RUSTFLAGS+=" -C link-arg=-fuse-ld=/usr/bin/ld -C link-arg=-ld_new"
+        '';
       };
     });
 }
