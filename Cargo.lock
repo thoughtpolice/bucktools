@@ -947,6 +947,7 @@ dependencies = [
  "tonic-build",
  "tonic-health",
  "tonic-reflection",
+ "tracing",
 ]
 
 [[package]]

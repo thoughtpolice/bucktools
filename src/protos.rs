@@ -8,16 +8,16 @@
 
 pub mod google {
     pub mod api {
-        tonic::include_proto!("google.api");
+        include!(concat!(env!("PROTOBUFS"), "/google.api.rs"));
     }
     pub mod bytestream {
-        tonic::include_proto!("google.bytestream");
+        include!(concat!(env!("PROTOBUFS"), "/google.bytestream.rs"));
     }
     pub mod longrunning {
-        tonic::include_proto!("google.longrunning");
+        include!(concat!(env!("PROTOBUFS"), "/google.longrunning.rs"));
     }
     pub mod rpc {
-        tonic::include_proto!("google.rpc");
+        include!(concat!(env!("PROTOBUFS"), "/google.rpc.rs"));
     }
 }
 
@@ -26,13 +26,16 @@ pub mod build {
         pub mod remote {
             pub mod execution {
                 pub mod v2 {
-                    tonic::include_proto!("build.bazel.remote.execution.v2");
+                    include!(concat!(
+                        env!("PROTOBUFS"),
+                        "/build.bazel.remote.execution.v2.rs"
+                    ));
                 }
             }
         }
 
         pub mod semver {
-            tonic::include_proto!("build.bazel.semver");
+            include!(concat!(env!("PROTOBUFS"), "/build.bazel.semver.rs"));
         }
     }
 }

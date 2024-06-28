@@ -14,7 +14,8 @@ use crate::protos::google::longrunning::operations_server::OperationsServer;
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-const FILE_DESCRIPTOR_SET: &[u8] = tonic::include_file_descriptor_set!("reapi_descriptor");
+const FILE_DESCRIPTOR_SET: &[u8] =
+    include_bytes!(concat!(env!("PROTOBUFS"), "/reapi_descriptor.bin"));
 
 pub async fn start_reapi_grpc(address: SocketAddr) -> Result<(), Box<dyn std::error::Error>> {
     use crate::service;
