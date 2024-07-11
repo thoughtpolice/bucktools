@@ -26,10 +26,6 @@ jobs:
     name: build with buck2
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@1482605bfc5719782e1267fd0c0cc350fe7646b8
-        with:
-          toolchain: 1.76
       - name: (Linux) Install Mold
         if: runner.os == 'Linux'
         run: |
