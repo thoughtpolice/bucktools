@@ -48,7 +48,8 @@ release_opt_flags = select({
 
 cxx_linker = select({
     "config//os:windows": "link.exe",
-    "DEFAULT": "clang++",
+    "config//os:macos": "clang++",
+    "DEFAULT": "g++",
 })
 
 system_cxx_toolchain(
