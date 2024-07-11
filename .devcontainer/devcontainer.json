@@ -5,6 +5,7 @@
         "dockerfile": "Dockerfile"
     },
     "features": {},
+    "postCreateCommand": "./.devcontainer/setup.sh",
     "customizations": {
         "codespaces": {
             "openFiles": [
