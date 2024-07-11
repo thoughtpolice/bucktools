@@ -1,0 +1,24 @@
+{
+    "name": "reapi-server development container",
+    "build": {
+        // Path is relative to the devcontainer.json file.
+        "dockerfile": "Dockerfile"
+    },
+    "features": {},
+    "customizations": {
+        "codespaces": {
+            "openFiles": [
+                "src/main.rs"
+            ]
+        },
+        "vscode": {
+            "extensions": [
+                "rust-lang.rust-analyzer",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
+    },
+    "remoteEnv": {
+        "PATH": "${containerWorkspaceFolder}/tools/bin:${containerEnv:PATH}"
+    }
+}
