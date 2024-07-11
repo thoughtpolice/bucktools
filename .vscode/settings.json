@@ -10,4 +10,9 @@
         "BUILD": "starlark",
         "PACKAGE": "starlark",
     },
+
+    "files.exclude": {
+        "**/.direnv": true,
+        "**/.jj": true,
+    }
 }
