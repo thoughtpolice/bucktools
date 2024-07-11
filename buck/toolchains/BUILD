@@ -1,10 +1,15 @@
 load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
-load("@prelude//toolchains:genrule.bzl", "system_genrule_toolchain")
 load("@prelude//toolchains:cxx.bzl", "system_cxx_toolchain")
-load("@prelude//toolchains:python.bzl", "system_python_bootstrap_toolchain")
 
-system_genrule_toolchain(name = "genrule")
-system_python_bootstrap_toolchain(name = "python_bootstrap")
+toolchain_alias(
+    name = 'genrule',
+    actual = 'toolchains//genrule:genrule',
+)
+
+toolchain_alias(
+    name = 'python_bootstrap',
+    actual = 'toolchains//python-bootstrap:python_bootstrap',
+)
 
 toolchain_alias(
     name = 'rust',
