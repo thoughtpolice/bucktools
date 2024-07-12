@@ -6,8 +6,11 @@ rust_binary(
         # CARGO-SYNC-START: dependencies
         'third-party//rust:clap',
         'third-party//rust:console-subscriber',
+        'third-party//rust:hex',
         'third-party//rust:prost',
         'third-party//rust:prost-types',
+        'third-party//rust:redb',
+        'third-party//rust:sha2',
         'third-party//rust:tokio',
         'third-party//rust:tokio-stream',
         'third-party//rust:tonic',
