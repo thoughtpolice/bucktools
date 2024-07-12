@@ -20,23 +20,28 @@ impl byte_stream_server::ByteStream for ByteStreamService {
 
     async fn read(
         &self,
-        _request: tonic::Request<ReadRequest>,
+        req: tonic::Request<ReadRequest>,
     ) -> Result<tonic::Response<Self::ReadStream>, tonic::Status> {
-        unimplemented!()
+        println!("read: {:?}", req);
+        Err(tonic::Status::unimplemented("read is not implemented"))
     }
 
     async fn write(
         &self,
-        _request: tonic::Request<tonic::Streaming<WriteRequest>>,
+        req: tonic::Request<tonic::Streaming<WriteRequest>>,
     ) -> Result<tonic::Response<WriteResponse>, tonic::Status> {
-        unimplemented!()
+        println!("write: {:?}", req);
+        Err(tonic::Status::unimplemented("write is not implemented"))
     }
 
     async fn query_write_status(
         &self,
-        _request: tonic::Request<QueryWriteStatusRequest>,
+        req: tonic::Request<QueryWriteStatusRequest>,
     ) -> Result<tonic::Response<QueryWriteStatusResponse>, tonic::Status> {
-        unimplemented!()
+        println!("query_write_status: {:?}", req);
+        Err(tonic::Status::unimplemented(
+            "query_write_status is not implemented",
+        ))
     }
 }
 
