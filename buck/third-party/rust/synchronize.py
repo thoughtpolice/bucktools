@@ -163,5 +163,5 @@ def update_buck_files():
                 f.write(contents)
 
 if __name__ == "__main__":
-    sync_cargo_deps()
     update_buck_files()
+    sync_cargo_deps()
