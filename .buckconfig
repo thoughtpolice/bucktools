@@ -87,22 +87,9 @@ ignore = \
   target
 
 [buck2_re_client]
-# default address for the cas/actioncache. this should be public for users so
-# they can always get build results. this does NOT include the 'engine_address'
-# service, which enables actual remote execution. that must be enabled
-# explicitly in .buckconfig.local
-cas_address          = https://builds.example.com
-action_cache_address = https://builds.example.com
+# action_cache_address = grpc://localhost:8080
+# cas_address = grpc://localhost:8080
 
 # 'instance name', which in RBE is the basic unit of isolation for projects; we
 # always default this for simplicity
-instance_name = jujutsu
-
-# always use TLS for all build products
-tls = true
-
-# in .buckconfig.local:
-#
-# [buck2_re_client]
-# engine_address = https://builds.jujutsu.dev
-# http_headers   = x-build-api-key:$BUILD_API_KEY
+instance_name = reapi-server
