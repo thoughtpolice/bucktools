@@ -34,8 +34,7 @@
           ourRustVersion
 
           cargo-bloat protobuf
-          grpcurl tokio-console sqlite
-          pkg-config fuse
+          sqlite pkg-config fuse
         ] ++ darwinDeps ++ linuxDeps;
 
         shellHook = with pkgs; ''
