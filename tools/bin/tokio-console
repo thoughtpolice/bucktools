@@ -1,0 +1,43 @@
+#!/usr/bin/env dotslash
+
+{
+  "name": "tokio-console",
+  "platforms": {
+    "macos-aarch64": {
+      "size": 2742403,
+      "hash": "blake3",
+      "digest": "0ce2f1d0971d348a5f5e4edf8c87b30dd188cfe39b3798dc216fa3197a217502",
+      "format": "tar.gz",
+      "path": "tokio-console",
+      "providers": [
+        {
+          "url": "https://github.com/cargo-bins/cargo-quickinstall/releases/download/tokio-console-0.1.11/tokio-console-0.1.11-aarch64-apple-darwin.tar.gz",
+        }
+      ]
+    },
+    "linux-x86_64": {
+      "size": 3544256,
+      "hash": "blake3",
+      "digest": "a0c9ff30ef36508ed11b3b2e90262c5a4b6b0b84c012af9dd51d7540c981828f",
+      "format": "tar.gz",
+      "path": "tokio-console",
+      "providers": [
+        {
+          "url": "https://github.com/cargo-bins/cargo-quickinstall/releases/download/tokio-console-0.1.11/tokio-console-0.1.11-x86_64-unknown-linux-musl.tar.gz"
+        }
+      ]
+    },
+    "windows-x86_64": {
+      "size": 2685947,
+      "hash": "blake3",
+      "digest": "7b26996eb46e66f62d51a549b76251f510edd264385a542b08554a9209cb483a",
+      "format": "tar.gz",
+      "path": "tokio-console.exe",
+      "providers": [
+        {
+          "url": "https://github.com/cargo-bins/cargo-quickinstall/releases/download/tokio-console-0.1.11/tokio-console-0.1.11-x86_64-pc-windows-msvc.tar.gz"
+        }
+      ]
+    },
+  }
+}
