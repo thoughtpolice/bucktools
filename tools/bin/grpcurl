@@ -1,0 +1,55 @@
+#!/usr/bin/env dotslash
+
+{
+  "name": "grpcurl",
+  "platforms": {
+    "macos-aarch64": {
+      "size": 8147451,
+      "hash": "blake3",
+      "digest": "dad304e203d0657674cbdaf02b55d2f798441920a0211caf8289c1a6b5d95d1d",
+      "format": "tar.gz",
+      "path": "grpcurl",
+      "providers": [
+        {
+          "url": "https://github.com/fullstorydev/grpcurl/releases/download/v1.9.1/grpcurl_1.9.1_osx_arm64.tar.gz",
+        }
+      ]
+    },
+    "linux-aarch64": {
+      "size": 7246440,
+      "hash": "blake3",
+      "digest": "f0d1428cfbcf6d3b56dea1587739e98eff1e5bc7251dbf755f5d22cb384376b2",
+      "format": "tar.gz",
+      "path": "grpcurl",
+      "providers": [
+        {
+          "url": "https://github.com/fullstorydev/grpcurl/releases/download/v1.9.1/grpcurl_1.9.1_linux_arm64.tar.gz",
+        }
+      ]
+    },
+    "linux-x86_64": {
+      "size": 7818878,
+      "hash": "blake3",
+      "digest": "651220f9a656b709cc92361317f2a6c1fbaa50b783f60b679477d20f5f98230d",
+      "format": "tar.gz",
+      "path": "grpcurl",
+      "providers": [
+        {
+          "url": "https://github.com/fullstorydev/grpcurl/releases/download/v1.9.1/grpcurl_1.9.1_linux_x86_64.tar.gz",
+        }
+      ]
+    },
+    "windows-x86_64": {
+      "size": 8060474,
+      "hash": "blake3",
+      "digest": "72578ff2bd229602c38a84e9c6732fff501781cf18b81553a1b943996ff6753d",
+      "format": "zip",
+      "path": "grpcurl.exe",
+      "providers": [
+        {
+          "url": "https://github.com/fullstorydev/grpcurl/releases/download/v1.9.1/grpcurl_1.9.1_windows_x86_64.zip",
+        }
+      ]
+    },
+  }
+}
