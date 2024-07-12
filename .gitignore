@@ -4,3 +4,4 @@
 /buck-out
 
 .envrc
+.buckconfig.local
