@@ -21,18 +21,22 @@ impl execution_server::Execution for ExecutionService {
 
     async fn execute(
         &self,
-        _request: tonic::Request<ExecuteRequest>,
+        req: tonic::Request<ExecuteRequest>,
     ) -> Result<tonic::Response<Self::ExecuteStream>, tonic::Status> {
-        unimplemented!()
+        println!("execute: {:?}", req);
+        Err(tonic::Status::unimplemented("execute is not implemented"))
     }
 
     type WaitExecutionStream = ReceiverStream<Result<longrunning::Operation, tonic::Status>>;
 
     async fn wait_execution(
         &self,
-        _request: tonic::Request<WaitExecutionRequest>,
+        req: tonic::Request<WaitExecutionRequest>,
     ) -> Result<tonic::Response<Self::WaitExecutionStream>, tonic::Status> {
-        unimplemented!()
+        println!("wait_execution: {:?}", req);
+        Err(tonic::Status::unimplemented(
+            "wait_execution is not implemented",
+        ))
     }
 }
 

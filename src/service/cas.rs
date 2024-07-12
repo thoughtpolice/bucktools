@@ -20,32 +20,42 @@ impl content_addressable_storage_server::ContentAddressableStorage
 {
     async fn find_missing_blobs(
         &self,
-        _request: tonic::Request<FindMissingBlobsRequest>,
+        req: tonic::Request<FindMissingBlobsRequest>,
     ) -> Result<tonic::Response<FindMissingBlobsResponse>, tonic::Status> {
-        unimplemented!()
+        println!("find_missing_blobs: {:?}", req);
+        Err(tonic::Status::unimplemented(
+            "find_missing_blobs is not implemented",
+        ))
     }
 
     async fn batch_update_blobs(
         &self,
-        _request: tonic::Request<BatchUpdateBlobsRequest>,
+        req: tonic::Request<BatchUpdateBlobsRequest>,
     ) -> Result<tonic::Response<BatchUpdateBlobsResponse>, tonic::Status> {
-        unimplemented!()
+        println!("batch_update_blobs: {:?}", req);
+        Err(tonic::Status::unimplemented(
+            "batch_update_blobs is not implemented",
+        ))
     }
 
     async fn batch_read_blobs(
         &self,
-        _request: tonic::Request<BatchReadBlobsRequest>,
+        req: tonic::Request<BatchReadBlobsRequest>,
     ) -> Result<tonic::Response<BatchReadBlobsResponse>, tonic::Status> {
-        unimplemented!()
+        println!("batch_read_blobs: {:?}", req);
+        Err(tonic::Status::unimplemented(
+            "batch_read_blobs is not implemented",
+        ))
     }
 
     type GetTreeStream = ReceiverStream<Result<GetTreeResponse, tonic::Status>>;
 
     async fn get_tree(
         &self,
-        _request: tonic::Request<GetTreeRequest>,
+        req: tonic::Request<GetTreeRequest>,
     ) -> Result<tonic::Response<Self::GetTreeStream>, tonic::Status> {
-        unimplemented!()
+        println!("get_tree: {:?}", req);
+        Err(tonic::Status::unimplemented("get_tree is not implemented"))
     }
 }
 
