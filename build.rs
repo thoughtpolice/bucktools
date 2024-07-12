@@ -7,6 +7,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let base_protos = [
         "protos/google/bytestream/bytestream.proto",
         "protos/google/longrunning/operations.proto",
+        "protos/google/rpc/code.proto",
         "protos/build/bazel/remote/execution/v2/remote_execution.proto",
         "protos/build/bazel/semver/semver.proto",
     ];
