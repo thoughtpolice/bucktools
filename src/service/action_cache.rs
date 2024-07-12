@@ -14,29 +14,21 @@ pub struct ActionCacheService {}
 
 #[tonic::async_trait]
 impl action_cache_server::ActionCache for ActionCacheService {
+    #[tracing::instrument]
     async fn get_action_result(
         &self,
-        req: tonic::Request<GetActionResultRequest>,
+        _req: tonic::Request<GetActionResultRequest>,
     ) -> Result<tonic::Response<ActionResult>, tonic::Status> {
-        tracing::warn!(
-            service = "ActionCache",
-            method = "get_action_result",
-            request = format!("{:?}", req)
-        );
         Err(tonic::Status::unimplemented(
             "get_action_result is not implemented",
         ))
     }
 
+    #[tracing::instrument]
     async fn update_action_result(
         &self,
-        req: tonic::Request<UpdateActionResultRequest>,
+        _req: tonic::Request<UpdateActionResultRequest>,
     ) -> Result<tonic::Response<ActionResult>, tonic::Status> {
-        tracing::warn!(
-            service = "ActionCache",
-            method = "update_action_result",
-            request = format!("{:?}", req)
-        );
         Err(tonic::Status::unimplemented(
             "update_action_result is not implemented",
         ))

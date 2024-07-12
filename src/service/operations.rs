@@ -15,51 +15,51 @@ pub struct OperationsService {}
 
 #[tonic::async_trait]
 impl operations_server::Operations for OperationsService {
+    #[tracing::instrument]
     async fn list_operations(
         &self,
-        req: tonic::Request<ListOperationsRequest>,
+        _req: tonic::Request<ListOperationsRequest>,
     ) -> Result<tonic::Response<ListOperationsResponse>, tonic::Status> {
-        println!("list_operations: {:?}", req);
         Err(tonic::Status::unimplemented(
             "list_operations is not implemented",
         ))
     }
 
+    #[tracing::instrument]
     async fn get_operation(
         &self,
-        req: tonic::Request<GetOperationRequest>,
+        _req: tonic::Request<GetOperationRequest>,
     ) -> Result<tonic::Response<Operation>, tonic::Status> {
-        println!("get_operation: {:?}", req);
         Err(tonic::Status::unimplemented(
             "get_operation is not implemented",
         ))
     }
 
+    #[tracing::instrument]
     async fn delete_operation(
         &self,
-        req: tonic::Request<DeleteOperationRequest>,
+        _req: tonic::Request<DeleteOperationRequest>,
     ) -> Result<tonic::Response<()>, tonic::Status> {
-        println!("delete_operation: {:?}", req);
         Err(tonic::Status::unimplemented(
             "delete_operation is not implemented",
         ))
     }
 
+    #[tracing::instrument]
     async fn cancel_operation(
         &self,
-        req: tonic::Request<CancelOperationRequest>,
+        _req: tonic::Request<CancelOperationRequest>,
     ) -> Result<tonic::Response<()>, tonic::Status> {
-        println!("cancel_operation: {:?}", req);
         Err(tonic::Status::unimplemented(
             "cancel_operation is not implemented",
         ))
     }
 
+    #[tracing::instrument]
     async fn wait_operation(
         &self,
-        req: tonic::Request<WaitOperationRequest>,
+        _req: tonic::Request<WaitOperationRequest>,
     ) -> Result<tonic::Response<Operation>, tonic::Status> {
-        println!("wait_operation: {:?}", req);
         Err(tonic::Status::unimplemented(
             "wait_operation is not implemented",
         ))
