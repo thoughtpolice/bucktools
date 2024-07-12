@@ -21,6 +21,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     console_subscriber::init();
     let address = cli.address.parse().unwrap();
+    println!("Starting reapi-server on {}", address);
     reapi_grpc::start_reapi_grpc(address).await?;
     Ok(())
 }
