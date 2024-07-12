@@ -22,7 +22,11 @@ impl byte_stream_server::ByteStream for ByteStreamService {
         &self,
         req: tonic::Request<ReadRequest>,
     ) -> Result<tonic::Response<Self::ReadStream>, tonic::Status> {
-        println!("read: {:?}", req);
+        tracing::warn!(
+            service = "ByteStream",
+            method = "read",
+            request = format!("{:?}", req)
+        );
         Err(tonic::Status::unimplemented("read is not implemented"))
     }
 
@@ -30,7 +34,11 @@ impl byte_stream_server::ByteStream for ByteStreamService {
         &self,
         req: tonic::Request<tonic::Streaming<WriteRequest>>,
     ) -> Result<tonic::Response<WriteResponse>, tonic::Status> {
-        println!("write: {:?}", req);
+        tracing::warn!(
+            service = "ByteStream",
+            method = "write",
+            request = format!("{:?}", req)
+        );
         Err(tonic::Status::unimplemented("write is not implemented"))
     }
 
@@ -38,7 +46,11 @@ impl byte_stream_server::ByteStream for ByteStreamService {
         &self,
         req: tonic::Request<QueryWriteStatusRequest>,
     ) -> Result<tonic::Response<QueryWriteStatusResponse>, tonic::Status> {
-        println!("query_write_status: {:?}", req);
+        tracing::warn!(
+            service = "ByteStream",
+            method = "query_write_status",
+            request = format!("{:?}", req)
+        );
         Err(tonic::Status::unimplemented(
             "query_write_status is not implemented",
         ))

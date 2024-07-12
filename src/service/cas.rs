@@ -22,7 +22,11 @@ impl content_addressable_storage_server::ContentAddressableStorage
         &self,
         req: tonic::Request<FindMissingBlobsRequest>,
     ) -> Result<tonic::Response<FindMissingBlobsResponse>, tonic::Status> {
-        println!("find_missing_blobs: {:?}", req);
+        tracing::warn!(
+            service = "ContentAddressableStorage",
+            method = "find_missing_blobs",
+            request = format!("{:?}", req)
+        );
         Err(tonic::Status::unimplemented(
             "find_missing_blobs is not implemented",
         ))
@@ -32,7 +36,11 @@ impl content_addressable_storage_server::ContentAddressableStorage
         &self,
         req: tonic::Request<BatchUpdateBlobsRequest>,
     ) -> Result<tonic::Response<BatchUpdateBlobsResponse>, tonic::Status> {
-        println!("batch_update_blobs: {:?}", req);
+        tracing::warn!(
+            service = "ContentAddressableStorage",
+            method = "batch_update_blobs",
+            request = format!("{:?}", req)
+        );
         Err(tonic::Status::unimplemented(
             "batch_update_blobs is not implemented",
         ))
@@ -42,7 +50,11 @@ impl content_addressable_storage_server::ContentAddressableStorage
         &self,
         req: tonic::Request<BatchReadBlobsRequest>,
     ) -> Result<tonic::Response<BatchReadBlobsResponse>, tonic::Status> {
-        println!("batch_read_blobs: {:?}", req);
+        tracing::warn!(
+            service = "ContentAddressableStorage",
+            method = "batch_read_blobs",
+            request = format!("{:?}", req)
+        );
         Err(tonic::Status::unimplemented(
             "batch_read_blobs is not implemented",
         ))
@@ -54,7 +66,11 @@ impl content_addressable_storage_server::ContentAddressableStorage
         &self,
         req: tonic::Request<GetTreeRequest>,
     ) -> Result<tonic::Response<Self::GetTreeStream>, tonic::Status> {
-        println!("get_tree: {:?}", req);
+        tracing::warn!(
+            service = "ContentAddressableStorage",
+            method = "get_tree",
+            request = format!("{:?}", req)
+        );
         Err(tonic::Status::unimplemented("get_tree is not implemented"))
     }
 }

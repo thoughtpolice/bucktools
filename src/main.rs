@@ -3,7 +3,10 @@
 
 //! Happy Fun Ball. Do not taunt.
 
+use std::str::FromStr;
+
 use clap::Parser;
+use tracing_subscriber::{filter, prelude::*};
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -13,15 +16,31 @@ struct Cli {
     /// The address to listen on
     #[clap(short, long, default_value = "[::1]:8080")]
     address: String,
+
+    /// `tracing` filter for the console logs.
+    #[clap(long, default_value = "info")]
+    console_log: String,
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
-    console_subscriber::init();
+    let tokio_console_layer = console_subscriber::spawn();
+    let cli_console_layer = tracing_subscriber::fmt::layer()
+        .with_filter(filter::LevelFilter::from_str(cli.console_log.as_str()).unwrap());
+
+    tracing_subscriber::registry()
+        .with(tokio_console_layer)
+        .with(cli_console_layer)
+        //  .with(..potential additional layer..)
+        .init();
+
     let address = cli.address.parse().unwrap();
-    println!("Starting reapi-server on {}", address);
+    tracing::info!(
+        message = "Starting reapi-server",
+        address = format!("{}", address)
+    );
     reapi_grpc::start_reapi_grpc(address).await?;
     Ok(())
 }
