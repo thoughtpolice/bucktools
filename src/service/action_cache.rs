@@ -18,7 +18,11 @@ impl action_cache_server::ActionCache for ActionCacheService {
         &self,
         req: tonic::Request<GetActionResultRequest>,
     ) -> Result<tonic::Response<ActionResult>, tonic::Status> {
-        println!("get_action_result: {:?}", req);
+        tracing::warn!(
+            service = "ActionCache",
+            method = "get_action_result",
+            request = format!("{:?}", req)
+        );
         Err(tonic::Status::unimplemented(
             "get_action_result is not implemented",
         ))
@@ -28,7 +32,11 @@ impl action_cache_server::ActionCache for ActionCacheService {
         &self,
         req: tonic::Request<UpdateActionResultRequest>,
     ) -> Result<tonic::Response<ActionResult>, tonic::Status> {
-        println!("update_action_result: {:?}", req);
+        tracing::warn!(
+            service = "ActionCache",
+            method = "update_action_result",
+            request = format!("{:?}", req)
+        );
         Err(tonic::Status::unimplemented(
             "update_action_result is not implemented",
         ))

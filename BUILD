@@ -14,6 +14,7 @@ rust_binary(
         'third-party//rust:tonic-health',
         'third-party//rust:tonic-reflection',
         'third-party//rust:tracing',
+        'third-party//rust:tracing-subscriber',
         # CARGO-SYNC-END
     ],
     env = {

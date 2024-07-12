@@ -1629,6 +1629,7 @@ third_party_rust.rust_library(
     crate = "log",
     crate_root = "log-0.4.22.crate/src/lib.rs",
     edition = "2021",
+    features = ["std"],
     visibility = [],
 )
 
@@ -1830,6 +1831,32 @@ third_party_rust.rust_library(
 )
 
 http_archive(
+    name = "nu-ansi-term-0.46.0.crate",
+    sha256 = "77a8165726e8236064dbb45459242600304b42a5ea24ee2948e18e023bf7ba84",
+    strip_prefix = "nu-ansi-term-0.46.0",
+    urls = ["https://static.crates.io/crates/nu-ansi-term/0.46.0/download"],
+    visibility = [],
+)
+
+third_party_rust.rust_library(
+    name = "nu-ansi-term-0.46.0",
+    srcs = [":nu-ansi-term-0.46.0.crate"],
+    crate = "nu_ansi_term",
+    crate_root = "nu-ansi-term-0.46.0.crate/src/lib.rs",
+    edition = "2018",
+    platform = {
+        "windows-gnu": dict(
+            deps = [":winapi-0.3.9"],
+        ),
+        "windows-msvc": dict(
+            deps = [":winapi-0.3.9"],
+        ),
+    },
+    visibility = [],
+    deps = [":overload-0.1.1"],
+)
+
+http_archive(
     name = "num-traits-0.2.19.crate",
     sha256 = "071dfc062690e90b734c0b2273ce72ad0ffa95f0c74596bc250dcfd960262841",
     strip_prefix = "num-traits-0.2.19",
@@ -1927,6 +1954,23 @@ third_party_rust.rust_library(
         "race",
         "std",
     ],
+    visibility = [],
+)
+
+http_archive(
+    name = "overload-0.1.1.crate",
+    sha256 = "b15813163c1d831bf4a13c3610c05c0d03b39feb07f7e09fa234dac9b15aaf39",
+    strip_prefix = "overload-0.1.1",
+    urls = ["https://static.crates.io/crates/overload/0.1.1/download"],
+    visibility = [],
+)
+
+third_party_rust.rust_library(
+    name = "overload-0.1.1",
+    srcs = [":overload-0.1.1.crate"],
+    crate = "overload",
+    crate_root = "overload-0.1.1.crate/src/lib.rs",
+    edition = "2018",
     visibility = [],
 )
 
@@ -2618,6 +2662,7 @@ third_party_rust.rust_binary(
         ":tonic-health-0.11.0",
         ":tonic-reflection-0.11.0",
         ":tracing-0.1.40",
+        ":tracing-subscriber-0.3.18",
     ],
 )
 
@@ -3682,6 +3727,38 @@ third_party_rust.rust_library(
 )
 
 http_archive(
+    name = "tracing-log-0.2.0.crate",
+    sha256 = "ee855f1f400bd0e5c02d150ae5de3840039a3f54b025156404e34c23c03f47c3",
+    strip_prefix = "tracing-log-0.2.0",
+    urls = ["https://static.crates.io/crates/tracing-log/0.2.0/download"],
+    visibility = [],
+)
+
+third_party_rust.rust_library(
+    name = "tracing-log-0.2.0",
+    srcs = [":tracing-log-0.2.0.crate"],
+    crate = "tracing_log",
+    crate_root = "tracing-log-0.2.0.crate/src/lib.rs",
+    edition = "2018",
+    features = [
+        "log-tracer",
+        "std",
+    ],
+    visibility = [],
+    deps = [
+        ":log-0.4.22",
+        ":once_cell-1.19.0",
+        ":tracing-core-0.1.32",
+    ],
+)
+
+alias(
+    name = "tracing-subscriber",
+    actual = ":tracing-subscriber-0.3.18",
+    visibility = ["PUBLIC"],
+)
+
+http_archive(
     name = "tracing-subscriber-0.3.18.crate",
     sha256 = "ad0f048c97dbd9faa9b7df56362b8ebcaa52adb06b498c050d2f4e32f90a7a8b",
     strip_prefix = "tracing-subscriber-0.3.18",
@@ -3697,26 +3774,34 @@ third_party_rust.rust_library(
     edition = "2018",
     features = [
         "alloc",
+        "ansi",
+        "default",
         "env-filter",
         "fmt",
         "matchers",
+        "nu-ansi-term",
         "once_cell",
         "regex",
         "registry",
         "sharded-slab",
+        "smallvec",
         "std",
         "thread_local",
         "tracing",
+        "tracing-log",
     ],
     visibility = [],
     deps = [
         ":matchers-0.1.0",
+        ":nu-ansi-term-0.46.0",
         ":once_cell-1.19.0",
         ":regex-1.10.5",
         ":sharded-slab-0.1.7",
+        ":smallvec-1.13.2",
         ":thread_local-1.1.8",
         ":tracing-0.1.40",
         ":tracing-core-0.1.32",
+        ":tracing-log-0.2.0",
     ],
 )
 
@@ -3788,6 +3873,86 @@ third_party_rust.rust_library(
     edition = "2018",
     visibility = [],
     deps = [":try-lock-0.2.5"],
+)
+
+http_archive(
+    name = "winapi-0.3.9.crate",
+    sha256 = "5c839a674fcd7a98952e593242ea400abe93992746761e38641405d28b00f419",
+    strip_prefix = "winapi-0.3.9",
+    urls = ["https://static.crates.io/crates/winapi/0.3.9/download"],
+    visibility = [],
+)
+
+third_party_rust.rust_library(
+    name = "winapi-0.3.9",
+    srcs = [":winapi-0.3.9.crate"],
+    crate = "winapi",
+    crate_root = "winapi-0.3.9.crate/src/lib.rs",
+    edition = "2015",
+    features = [
+        "consoleapi",
+        "errhandlingapi",
+        "fileapi",
+        "handleapi",
+        "processenv",
+    ],
+    platform = {
+        "windows-gnu": dict(
+            rustc_flags = ["@$(location :winapi-0.3.9-build-script-run[rustc_flags])"],
+            deps = [":winapi-x86_64-pc-windows-gnu-0.4.0"],
+        ),
+        "windows-msvc": dict(
+            rustc_flags = ["@$(location :winapi-0.3.9-build-script-run[rustc_flags])"],
+        ),
+    },
+    visibility = [],
+)
+
+third_party_rust.rust_binary(
+    name = "winapi-0.3.9-build-script-build",
+    srcs = [":winapi-0.3.9.crate"],
+    crate = "build_script_build",
+    crate_root = "winapi-0.3.9.crate/build.rs",
+    edition = "2015",
+    features = [
+        "consoleapi",
+        "errhandlingapi",
+        "fileapi",
+        "handleapi",
+        "processenv",
+    ],
+    visibility = [],
+)
+
+third_party_rust.buildscript_run(
+    name = "winapi-0.3.9-build-script-run",
+    package_name = "winapi",
+    buildscript_rule = ":winapi-0.3.9-build-script-build",
+    features = [
+        "consoleapi",
+        "errhandlingapi",
+        "fileapi",
+        "handleapi",
+        "processenv",
+    ],
+    version = "0.3.9",
+)
+
+http_archive(
+    name = "winapi-x86_64-pc-windows-gnu-0.4.0.crate",
+    sha256 = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f",
+    strip_prefix = "winapi-x86_64-pc-windows-gnu-0.4.0",
+    urls = ["https://static.crates.io/crates/winapi-x86_64-pc-windows-gnu/0.4.0/download"],
+    visibility = [],
+)
+
+third_party_rust.rust_library(
+    name = "winapi-x86_64-pc-windows-gnu-0.4.0",
+    srcs = [":winapi-x86_64-pc-windows-gnu-0.4.0.crate"],
+    crate = "winapi_x86_64_pc_windows_gnu",
+    crate_root = "winapi-x86_64-pc-windows-gnu-0.4.0.crate/src/lib.rs",
+    edition = "2015",
+    visibility = [],
 )
 
 http_archive(
