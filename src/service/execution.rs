@@ -19,21 +19,21 @@ pub struct ExecutionService {}
 impl execution_server::Execution for ExecutionService {
     type ExecuteStream = ReceiverStream<Result<longrunning::Operation, tonic::Status>>;
 
+    #[tracing::instrument]
     async fn execute(
         &self,
-        req: tonic::Request<ExecuteRequest>,
+        _req: tonic::Request<ExecuteRequest>,
     ) -> Result<tonic::Response<Self::ExecuteStream>, tonic::Status> {
-        println!("execute: {:?}", req);
         Err(tonic::Status::unimplemented("execute is not implemented"))
     }
 
     type WaitExecutionStream = ReceiverStream<Result<longrunning::Operation, tonic::Status>>;
 
+    #[tracing::instrument]
     async fn wait_execution(
         &self,
-        req: tonic::Request<WaitExecutionRequest>,
+        _req: tonic::Request<WaitExecutionRequest>,
     ) -> Result<tonic::Response<Self::WaitExecutionStream>, tonic::Status> {
-        println!("wait_execution: {:?}", req);
         Err(tonic::Status::unimplemented(
             "wait_execution is not implemented",
         ))

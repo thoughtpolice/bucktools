@@ -18,43 +18,31 @@ pub struct ContentAddressableStorageService {}
 impl content_addressable_storage_server::ContentAddressableStorage
     for ContentAddressableStorageService
 {
+    #[tracing::instrument]
     async fn find_missing_blobs(
         &self,
-        req: tonic::Request<FindMissingBlobsRequest>,
+        _req: tonic::Request<FindMissingBlobsRequest>,
     ) -> Result<tonic::Response<FindMissingBlobsResponse>, tonic::Status> {
-        tracing::warn!(
-            service = "ContentAddressableStorage",
-            method = "find_missing_blobs",
-            request = format!("{:?}", req)
-        );
         Err(tonic::Status::unimplemented(
             "find_missing_blobs is not implemented",
         ))
     }
 
+    #[tracing::instrument]
     async fn batch_update_blobs(
         &self,
-        req: tonic::Request<BatchUpdateBlobsRequest>,
+        _req: tonic::Request<BatchUpdateBlobsRequest>,
     ) -> Result<tonic::Response<BatchUpdateBlobsResponse>, tonic::Status> {
-        tracing::warn!(
-            service = "ContentAddressableStorage",
-            method = "batch_update_blobs",
-            request = format!("{:?}", req)
-        );
         Err(tonic::Status::unimplemented(
             "batch_update_blobs is not implemented",
         ))
     }
 
+    #[tracing::instrument]
     async fn batch_read_blobs(
         &self,
-        req: tonic::Request<BatchReadBlobsRequest>,
+        _req: tonic::Request<BatchReadBlobsRequest>,
     ) -> Result<tonic::Response<BatchReadBlobsResponse>, tonic::Status> {
-        tracing::warn!(
-            service = "ContentAddressableStorage",
-            method = "batch_read_blobs",
-            request = format!("{:?}", req)
-        );
         Err(tonic::Status::unimplemented(
             "batch_read_blobs is not implemented",
         ))
@@ -62,15 +50,11 @@ impl content_addressable_storage_server::ContentAddressableStorage
 
     type GetTreeStream = ReceiverStream<Result<GetTreeResponse, tonic::Status>>;
 
+    #[tracing::instrument]
     async fn get_tree(
         &self,
-        req: tonic::Request<GetTreeRequest>,
+        _req: tonic::Request<GetTreeRequest>,
     ) -> Result<tonic::Response<Self::GetTreeStream>, tonic::Status> {
-        tracing::warn!(
-            service = "ContentAddressableStorage",
-            method = "get_tree",
-            request = format!("{:?}", req)
-        );
         Err(tonic::Status::unimplemented("get_tree is not implemented"))
     }
 }

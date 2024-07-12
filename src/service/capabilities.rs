@@ -21,6 +21,7 @@ pub struct CapabilitiesService {}
 
 #[tonic::async_trait]
 impl capabilities_server::Capabilities for CapabilitiesService {
+    #[tracing::instrument]
     async fn get_capabilities(
         &self,
         _request: tonic::Request<GetCapabilitiesRequest>,
