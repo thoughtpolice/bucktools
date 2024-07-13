@@ -1,5 +1,5 @@
 cfgs = ["boringssl"]
-features = ["unstable_boringssl"]
+features = ["unstable_boringssl", "bindgen"]
 extra_deps = [
     "third-party//bssl:crypto",
     "third-party//bssl:ssl",

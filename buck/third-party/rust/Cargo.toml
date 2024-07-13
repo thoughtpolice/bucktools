@@ -17,6 +17,7 @@ clap = { version = "4.5.4", features = [ "derive" ] }
 console-subscriber = "0.2.0"
 flate2 = "1.0.30"
 hex = "0.4.3"
+openssl = "0.10.64"
 prost = "0.12.4"
 prost-types = "0.12.4"
 redb = "2.1.1"

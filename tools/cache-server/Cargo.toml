@@ -12,6 +12,7 @@ edition = { workspace = true }
 clap.workspace = true
 console-subscriber.workspace = true
 hex.workspace = true
+openssl.workspace = true
 prost.workspace = true
 prost-types.workspace = true
 redb.workspace = true

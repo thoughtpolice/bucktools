@@ -1041,6 +1041,41 @@ third_party_rust.rust_library(
 )
 
 http_archive(
+    name = "foreign-types-0.3.2.crate",
+    sha256 = "f6f339eb8adc052cd2ca78910fda869aefa38d22d5cb648e6485e4d3fc06f3b1",
+    strip_prefix = "foreign-types-0.3.2",
+    urls = ["https://static.crates.io/crates/foreign-types/0.3.2/download"],
+    visibility = [],
+)
+
+third_party_rust.rust_library(
+    name = "foreign-types-0.3.2",
+    srcs = [":foreign-types-0.3.2.crate"],
+    crate = "foreign_types",
+    crate_root = "foreign-types-0.3.2.crate/src/lib.rs",
+    edition = "2015",
+    visibility = [],
+    deps = [":foreign-types-shared-0.1.1"],
+)
+
+http_archive(
+    name = "foreign-types-shared-0.1.1.crate",
+    sha256 = "00b0228411908ca8685dba7fc2cdd70ec9990a6e753e89b6ac91a84c40fbaf4b",
+    strip_prefix = "foreign-types-shared-0.1.1",
+    urls = ["https://static.crates.io/crates/foreign-types-shared/0.1.1/download"],
+    visibility = [],
+)
+
+third_party_rust.rust_library(
+    name = "foreign-types-shared-0.1.1",
+    srcs = [":foreign-types-shared-0.1.1.crate"],
+    crate = "foreign_types_shared",
+    crate_root = "foreign-types-shared-0.1.1.crate/src/lib.rs",
+    edition = "2015",
+    visibility = [],
+)
+
+http_archive(
     name = "futures-channel-0.3.30.crate",
     sha256 = "eac8f7d7865dcb88bd4373ab671c8cf4508703796caa2b1985a9ca867b3fcb78",
     strip_prefix = "futures-channel-0.3.30",
@@ -2136,6 +2171,146 @@ third_party_rust.rust_library(
     visibility = [],
 )
 
+alias(
+    name = "openssl",
+    actual = ":openssl-0.10.64",
+    visibility = ["PUBLIC"],
+)
+
+http_archive(
+    name = "openssl-0.10.64.crate",
+    sha256 = "95a0481286a310808298130d22dd1fef0fa571e05a8f44ec801801e84b216b1f",
+    strip_prefix = "openssl-0.10.64",
+    urls = ["https://static.crates.io/crates/openssl/0.10.64/download"],
+    visibility = [],
+)
+
+third_party_rust.rust_library(
+    name = "openssl-0.10.64",
+    srcs = [":openssl-0.10.64.crate"],
+    crate = "openssl",
+    crate_root = "openssl-0.10.64.crate/src/lib.rs",
+    edition = "2018",
+    features = [
+        "bindgen",
+        "default",
+        "unstable_boringssl",
+    ],
+    named_deps = {
+        "ffi": ":openssl-sys-0.9.102",
+    },
+    rustc_flags = [
+        "--cfg=boringssl",
+        "--cfg=osslconf=\"OPENSSL_NO_ASYNC\"",
+        "--cfg=osslconf=\"OPENSSL_NO_BF\"",
+        "--cfg=osslconf=\"OPENSSL_NO_BLAKE2\"",
+        "--cfg=osslconf=\"OPENSSL_NO_BUF_FREELISTS\"",
+        "--cfg=osslconf=\"OPENSSL_NO_CAMELLIA\"",
+        "--cfg=osslconf=\"OPENSSL_NO_CAPIENG\"",
+        "--cfg=osslconf=\"OPENSSL_NO_CAST\"",
+        "--cfg=osslconf=\"OPENSSL_NO_CMS\"",
+        "--cfg=osslconf=\"OPENSSL_NO_COMP\"",
+        "--cfg=osslconf=\"OPENSSL_NO_CT\"",
+        "--cfg=osslconf=\"OPENSSL_NO_DANE\"",
+        "--cfg=osslconf=\"OPENSSL_NO_DEPRECATED\"",
+        "--cfg=osslconf=\"OPENSSL_NO_DGRAM\"",
+        "--cfg=osslconf=\"OPENSSL_NO_DYNAMIC_ENGINE\"",
+        "--cfg=osslconf=\"OPENSSL_NO_EC2M\"",
+        "--cfg=osslconf=\"OPENSSL_NO_EC_NISTP_64_GCC_128\"",
+        "--cfg=osslconf=\"OPENSSL_NO_EGD\"",
+        "--cfg=osslconf=\"OPENSSL_NO_ENGINE\"",
+        "--cfg=osslconf=\"OPENSSL_NO_GMP\"",
+        "--cfg=osslconf=\"OPENSSL_NO_GOST\"",
+        "--cfg=osslconf=\"OPENSSL_NO_HEARTBEATS\"",
+        "--cfg=osslconf=\"OPENSSL_NO_HW\"",
+        "--cfg=osslconf=\"OPENSSL_NO_IDEA\"",
+        "--cfg=osslconf=\"OPENSSL_NO_JPAKE\"",
+        "--cfg=osslconf=\"OPENSSL_NO_KRB5\"",
+        "--cfg=osslconf=\"OPENSSL_NO_MD2\"",
+        "--cfg=osslconf=\"OPENSSL_NO_MDC2\"",
+        "--cfg=osslconf=\"OPENSSL_NO_OCB\"",
+        "--cfg=osslconf=\"OPENSSL_NO_OCSP\"",
+        "--cfg=osslconf=\"OPENSSL_NO_RC2\"",
+        "--cfg=osslconf=\"OPENSSL_NO_RC5\"",
+        "--cfg=osslconf=\"OPENSSL_NO_RFC3779\"",
+        "--cfg=osslconf=\"OPENSSL_NO_RIPEMD\"",
+        "--cfg=osslconf=\"OPENSSL_NO_RMD160\"",
+        "--cfg=osslconf=\"OPENSSL_NO_SCTP\"",
+        "--cfg=osslconf=\"OPENSSL_NO_SEED\"",
+        "--cfg=osslconf=\"OPENSSL_NO_SM2\"",
+        "--cfg=osslconf=\"OPENSSL_NO_SM3\"",
+        "--cfg=osslconf=\"OPENSSL_NO_SM4\"",
+        "--cfg=osslconf=\"OPENSSL_NO_SRP\"",
+        "--cfg=osslconf=\"OPENSSL_NO_SSL2\"",
+        "--cfg=osslconf=\"OPENSSL_NO_SSL3\"",
+        "--cfg=osslconf=\"OPENSSL_NO_SSL3_METHOD\"",
+        "--cfg=osslconf=\"OPENSSL_NO_SSL_TRACE\"",
+        "--cfg=osslconf=\"OPENSSL_NO_STATIC_ENGINE\"",
+        "--cfg=osslconf=\"OPENSSL_NO_STORE\"",
+        "--cfg=osslconf=\"OPENSSL_NO_WHIRLPOOL\"",
+    ],
+    visibility = [],
+    deps = [
+        ":bitflags-2.6.0",
+        ":cfg-if-1.0.0",
+        ":foreign-types-0.3.2",
+        ":libc-0.2.155",
+        ":once_cell-1.19.0",
+        ":openssl-macros-0.1.1",
+    ],
+)
+
+http_archive(
+    name = "openssl-macros-0.1.1.crate",
+    sha256 = "a948666b637a0f465e8564c73e89d4dde00d72d4d473cc972f390fc3dcee7d9c",
+    strip_prefix = "openssl-macros-0.1.1",
+    urls = ["https://static.crates.io/crates/openssl-macros/0.1.1/download"],
+    visibility = [],
+)
+
+third_party_rust.rust_library(
+    name = "openssl-macros-0.1.1",
+    srcs = [":openssl-macros-0.1.1.crate"],
+    crate = "openssl_macros",
+    crate_root = "openssl-macros-0.1.1.crate/src/lib.rs",
+    edition = "2018",
+    proc_macro = True,
+    visibility = [],
+    deps = [
+        ":proc-macro2-1.0.86",
+        ":quote-1.0.36",
+        ":syn-2.0.68",
+    ],
+)
+
+http_archive(
+    name = "openssl-sys-0.9.102.crate",
+    sha256 = "c597637d56fbc83893a35eb0dd04b2b8e7a50c91e64e9493e398b5df4fb45fa2",
+    strip_prefix = "openssl-sys-0.9.102",
+    urls = ["https://static.crates.io/crates/openssl-sys/0.9.102/download"],
+    visibility = [],
+)
+
+third_party_rust.rust_library(
+    name = "openssl-sys-0.9.102",
+    srcs = [":openssl-sys-0.9.102.crate"],
+    crate = "openssl_sys",
+    crate_root = "openssl-sys-0.9.102.crate/src/lib.rs",
+    edition = "2018",
+    features = [
+        "bindgen",
+        "unstable_boringssl",
+    ],
+    rustc_flags = ["--cfg=boringssl"],
+    visibility = [],
+    deps = [
+        "third-party//bssl:crypto",
+        "third-party//bssl:ssl",
+        "third-party//bssl/rust:bssl-sys",
+        ":libc-0.2.155",
+    ],
+)
+
 http_archive(
     name = "overload-0.1.1.crate",
     sha256 = "b15813163c1d831bf4a13c3610c05c0d03b39feb07f7e09fa234dac9b15aaf39",
@@ -2873,6 +3048,7 @@ third_party_rust.rust_binary(
         ":console-subscriber-0.2.0",
         ":flate2-1.0.30",
         ":hex-0.4.3",
+        ":openssl-0.10.64",
         ":prost-0.12.6",
         ":prost-types-0.12.6",
         ":redb-2.1.1",
