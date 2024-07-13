@@ -75,10 +75,27 @@ def sync_cargo_deps():
     with open("buck/third-party/rust/Cargo.toml", "w") as f:
         f.write(contents)
 
+    # get the path to 'rustc' and 'cargo' directly from the buck targets under
+    # toolchains//:rust
+    get_rust_tool = lambda tgt: [
+        "./tools/bin/buck2",
+        "build",
+        "--show-full-simple-output",
+        "toolchains//:rust[{}]".format(tgt),
+    ]
+
+    result = subprocess.run(get_rust_tool('cargo'), check=True, capture_output=True)
+    cargo = result.stdout.decode("utf-8").strip()
+
+    result = subprocess.run(get_rust_tool('rustc'), check=True, capture_output=True)
+    rustc = result.stdout.decode("utf-8").strip()
+
     # now run reindeer
     print("Now running 'reindeer' to regenerate BUILD files")
     cmd = [
         "./tools/bin/reindeer",
+        "--rustc-path", rustc,
+        "--cargo-path", cargo,
         "--third-party-dir",
         "buck/third-party/rust",
         "buckify",
