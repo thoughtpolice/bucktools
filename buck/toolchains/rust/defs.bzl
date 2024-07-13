@@ -47,10 +47,18 @@ def _vendored_rust_toolchain_impl(ctx):
     clippy_driver = rustc_download.project(f'clippy-preview/bin/clippy-driver{binary_extension}')
     rustc = rustc_download.project(f'rustc/bin/rustc{binary_extension}')
     rustdoc = rustc_download.project(f'rustc/bin/rustdoc{binary_extension}')
+    cargo = rustc_download.project(f'cargo/bin/cargo{binary_extension}')
     sysroot_path = rustc_download.project(f'rust-std-{triple}')
 
     return [
-        DefaultInfo(),
+        DefaultInfo(
+            default_output = rustc_download,
+            sub_targets = {
+                'rustc': [ DefaultInfo( default_output = rustc ), RunInfo( args = cmd_args([rustc]) ) ],
+                'rustdoc': [ DefaultInfo( default_output = rustdoc ), RunInfo( args = cmd_args([rustdoc]) ) ],
+                'cargo': [ DefaultInfo( default_output = cargo ), RunInfo( args = cmd_args([cargo]) ) ],
+            }
+        ),
         RustToolchainInfo(
             allow_lints = ctx.attrs.allow_lints,
             clippy_driver = RunInfo(args = cmd_args([clippy_driver])),
