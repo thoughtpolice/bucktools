@@ -31,7 +31,7 @@ cargo run &
 ### Buck2 build
 
 Tools are not provisioned at all, currently; you must have `rustc` installed
-somewhere and available in your `$PATH. Buck2 works on all platforms.
+somewhere and available in your `$PATH`. Buck2 works on all platforms.
 
 ```bash
 buck2 run :reapi-server
