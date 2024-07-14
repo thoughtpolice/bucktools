@@ -9,7 +9,7 @@ on:
 permissions: read-all
 
 jobs:
-  nix:
+  build:
     strategy:
       fail-fast: false
       matrix:
@@ -23,7 +23,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15 # NOTE (aseipp): keep in-sync with the build.yml timeout limit
 
-    name: build with buck2
+    name: build buck2 binaries
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: (Linux) Install Mold
@@ -34,18 +34,24 @@ jobs:
         uses: ./.github/actions/install-dotslash
       # FIXME (aseipp): use 'buck2' out of `$PATH` after we have dotslash .exe
       # shim files for windows. until then just invoke manually
-      - name: buck2 build //...
+      - name: buck2 build ...
         shell: bash
         run: |
           mkdir -p out
           # run the build, and if it fails, still stash the log in out, then propagate the error
           # we use 'if' so that the error so that the script doesn't fail if the build fails
           if ! dotslash ./buck/bin/buck2 build @mode//debug //:bucktools --out out; then
-            cp buck-out/v2/log/*.pb.zst out
+            mv buck-out/v2/log/*.pb.zst out
             exit 1
           else
-            cp buck-out/v2/log/*.pb.zst out
+            mv buck-out/v2/log/*.pb.zst out
           fi
+
+      - name: buck2 test ...
+        shell: bash
+        run: |
+          dotslash ./buck/bin/buck2 test @mode//debug third-party//... root//...
+          mv buck-out/v2/log/*.pb.zst out
 
       - name: "Upload artifact"
         if: always()
