@@ -40,7 +40,7 @@ jobs:
           mkdir -p out
           # run the build, and if it fails, still stash the log in out, then propagate the error
           # we use 'if' so that the error so that the script doesn't fail if the build fails
-          if ! dotslash ./buck/bin/buck2 build @mode//debug //:reapi-server --out out/reapi-server.exe; then
+          if ! dotslash ./buck/bin/buck2 build @mode//debug //:bucktools --out out; then
             cp buck-out/v2/log/*.pb.zst out
             exit 1
           else

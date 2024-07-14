@@ -48,11 +48,12 @@ def sync_cargo_deps():
     with open ("Cargo.toml", "rb") as f:
         # parse the workspace Cargo.toml
         data = tomllib.load(f)
-        deps = data["dependencies"]
+        deps = data["workspace"]["dependencies"]
 
         # add build-dependencies to the normal set of deps
-        for x, v in data["build-dependencies"].items():
-            deps[x] = v
+        if "build-dependencies" in data:
+            for x, v in data["build-dependencies"].items():
+                deps[x] = v
 
         contents += "[dependencies]\n"
         for x, v in deps.items():
@@ -113,7 +114,7 @@ def sync_cargo_deps():
     subprocess.run(cmd, check=True)
 
 BUILD_FILES= [
-    ('BUILD', 'Cargo.toml'),
+    ('tools/cache-server/BUILD', 'tools/cache-server/Cargo.toml'),
 ]
 
 def update_buck_files():

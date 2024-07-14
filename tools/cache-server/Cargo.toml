@@ -1,0 +1,28 @@
+[package]
+name = "buck2-cache-server"
+description = "RBE caching server"
+default-run = "buck2-cache-server"
+
+version = { workspace = true }
+license = { workspace = true }
+rust-version = { workspace = true }
+edition = { workspace = true }
+
+[dependencies]
+clap.workspace = true
+console-subscriber.workspace = true
+hex.workspace = true
+prost.workspace = true
+prost-types.workspace = true
+redb.workspace = true
+sha2.workspace = true
+tokio.workspace = true
+tokio-stream.workspace = true
+tonic.workspace = true
+tonic-reflection.workspace = true
+tonic-health.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+
+[build-dependencies]
+tonic-build.workspace = true

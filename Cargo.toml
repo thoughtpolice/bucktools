@@ -1,12 +1,18 @@
-[package]
-name = "reapi-server"
+cargo-features = []
+
+[workspace]
+resolver = "2"
+members = ["tools/cache-server"]
+
+[workspace.package]
 version = "0.1.0"
-edition = "2021"
 license = "MIT OR Apache-2.0"
-rust-version = "1.77"
+rust-version = "1.79"
+edition = "2021"
+readme = "README.md"
 authors = ["Austin Seipp <aseipp@pobox.com>"]
 
-[dependencies]
+[workspace.dependencies]
 clap = { version = "4.5.4", features = ["derive"] }
 console-subscriber = "0.2.0"
 hex = "0.4.3"
@@ -22,13 +28,11 @@ tokio = { version = "1.37.0", features = [
 ] }
 tokio-stream = "0.1.15"
 tonic = "0.11.0"
+tonic-build = "0.11.0"
 tonic-reflection = "0.11.0"
 tonic-health = "0.11.0"
 tracing = "0.1.40"
 tracing-subscriber = "0.3.18"
-
-[build-dependencies]
-tonic-build = "0.11.0"
 
 [profile.release]
 incremental = true
