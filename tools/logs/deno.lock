@@ -1,0 +1,26 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "jsr:@std/async": "jsr:@std/async@0.224.2",
+      "jsr:@std/cli": "jsr:@std/cli@0.224.7",
+      "jsr:@std/fs": "jsr:@std/fs@0.229.3",
+      "jsr:@std/io": "jsr:@std/io@0.224.3"
+    },
+    "jsr": {
+      "@std/async@0.224.2": {
+        "integrity": "4d277d6e165df43d5e061ba0ef3edfddb8e8d558f5b920e3e6b1d2614b44d074"
+      },
+      "@std/cli@0.224.7": {
+        "integrity": "654ca6477518e5e3a0d3fabafb2789e92b8c0febf1a1d24ba4b567aba94b5977"
+      },
+      "@std/fs@0.229.3": {
+        "integrity": "783bca21f24da92e04c3893c9e79653227ab016c48e96b3078377ebd5222e6eb"
+      },
+      "@std/io@0.224.3": {
+        "integrity": "b402edeb99c6b3778d9ae3e9927bc9085b170b41e5a09bbb7064ab2ee394ae2f"
+      }
+    }
+  },
+  "remote": {}
+}
