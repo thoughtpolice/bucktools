@@ -78,7 +78,7 @@ def sync_cargo_deps():
     # get the path to 'rustc' and 'cargo' directly from the buck targets under
     # toolchains//:rust
     get_rust_tool = lambda tgt: [
-        "./tools/bin/buck2",
+        "./buck/bin/buck2",
         "build",
         "--show-full-simple-output",
         "toolchains//:rust[{}]".format(tgt),
@@ -93,7 +93,7 @@ def sync_cargo_deps():
     # now run reindeer
     print("Now running 'reindeer' to regenerate BUILD files")
     cmd = [
-        "./tools/bin/reindeer",
+        "./buck/bin/reindeer",
         "--rustc-path", rustc,
         "--cargo-path", cargo,
         "--third-party-dir",

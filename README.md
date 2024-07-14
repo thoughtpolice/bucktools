@@ -13,10 +13,10 @@ You must have [DotSlash](https://dotslash-cli.com) installed, as this repository
 provides various useful tools for you to use as DotSlash files.
 
 ```bash
-export PATH=$PWD/tools/bin:$PATH
+export PATH=$PWD/buck/bin:$PATH
 ```
 
-Windows users have to invoke `dotslash tools/bin/$FILE` manually, for now.
+Windows users have to invoke `dotslash buck/bin/$FILE` manually, for now.
 
 ### Cargo build
 
@@ -39,7 +39,7 @@ buck2 run :reapi-server
 
 ### Testing API endpoints
 
-`grpcurl` is provided by default under [./tools/bin/](./tools/bin/).
+`grpcurl` is provided by default under [./buck/bin/](./buck/bin/).
 
 ```bash
 grpcurl -plaintext '[::1]:8080' list
