@@ -208,6 +208,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "buck2-cache-server"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "console-subscriber",
+ "hex",
+ "prost",
+ "prost-types",
+ "redb",
+ "sha2",
+ "tokio",
+ "tokio-stream",
+ "tonic 0.11.0",
+ "tonic-build",
+ "tonic-health",
+ "tonic-reflection",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "byteorder"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1001,27 +1022,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
 dependencies = [
  "getrandom",
-]
-
-[[package]]
-name = "reapi-server"
-version = "0.1.0"
-dependencies = [
- "clap",
- "console-subscriber",
- "hex",
- "prost",
- "prost-types",
- "redb",
- "sha2",
- "tokio",
- "tokio-stream",
- "tonic 0.11.0",
- "tonic-build",
- "tonic-health",
- "tonic-reflection",
- "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]

@@ -11,7 +11,7 @@ use tracing_subscriber::{filter, prelude::*};
 // ---------------------------------------------------------------------------------------------------------------------
 
 #[derive(Parser, Debug)]
-#[command(name = "reapi-server", author = "Austin Seipp", version = "0.1.0")]
+#[command(name = "buck2-cache-server", author = "Austin Seipp", version = "0.1.0")]
 struct Cli {
     /// The address to listen on
     #[clap(short, long, default_value = "[::1]:8080")]
@@ -38,7 +38,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let address = cli.address.parse().unwrap();
     tracing::info!(
-        message = "Starting reapi-server",
+        message = "Starting buck2-cache-server",
         address = format!("{}", address)
     );
     reapi_grpc::start_reapi_grpc(address).await?;
