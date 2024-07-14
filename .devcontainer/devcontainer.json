@@ -1,5 +1,5 @@
 {
-    "name": "reapi-server development container",
+    "name": "bucktools development container",
     "build": {
         // Path is relative to the devcontainer.json file.
         "dockerfile": "Dockerfile"
