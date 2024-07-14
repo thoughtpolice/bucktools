@@ -92,4 +92,4 @@ ignore = \
 
 # 'instance name', which in RBE is the basic unit of isolation for projects; we
 # always default this for simplicity
-instance_name = reapi-server
+instance_name = bucktools
