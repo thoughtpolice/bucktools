@@ -115,6 +115,7 @@ def sync_cargo_deps():
 
 BUILD_FILES= [
     ('tools/cache-server/BUILD', 'tools/cache-server/Cargo.toml'),
+    ('tools/smoltar/BUILD', 'tools/smoltar/Cargo.toml'),
 ]
 
 def update_buck_files():
