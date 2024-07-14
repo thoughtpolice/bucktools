@@ -1,1 +1,1 @@
---config=jj.buildmode=release
+--config=project.buildmode=release

@@ -1,1 +1,1 @@
---config=jj.buildmode=debug
+--config=project.buildmode=debug

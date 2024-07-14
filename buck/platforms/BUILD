@@ -1,7 +1,7 @@
 load("@prelude//utils/buckconfig.bzl", "read_choice")
 load(":defs.bzl", "generate_platforms", "default_platforms")
 
-build_config = read_choice("jj", "buildmode", [
+build_config = read_choice("project", "buildmode", [
     "debug",
     "release",
 ], "debug")
