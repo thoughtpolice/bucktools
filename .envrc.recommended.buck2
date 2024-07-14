@@ -1,2 +1,2 @@
 # echo "source_env .envrc.recommended.buck2" >> .envrc
-export PATH=$PWD/tools/bin:$PATH
+export PATH=$PWD/buck/bin:$PATH
