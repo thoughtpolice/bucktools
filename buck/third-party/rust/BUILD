@@ -938,6 +938,44 @@ third_party_rust.rust_library(
 )
 
 http_archive(
+    name = "filetime-0.2.23.crate",
+    sha256 = "1ee447700ac8aa0b2f2bd7bc4462ad686ba06baa6727ac149a2d6277f0d240fd",
+    strip_prefix = "filetime-0.2.23",
+    urls = ["https://static.crates.io/crates/filetime/0.2.23/download"],
+    visibility = [],
+)
+
+third_party_rust.rust_library(
+    name = "filetime-0.2.23",
+    srcs = [":filetime-0.2.23.crate"],
+    crate = "filetime",
+    crate_root = "filetime-0.2.23.crate/src/lib.rs",
+    edition = "2018",
+    platform = {
+        "linux-arm64": dict(
+            deps = [":libc-0.2.155"],
+        ),
+        "linux-x86_64": dict(
+            deps = [":libc-0.2.155"],
+        ),
+        "macos-arm64": dict(
+            deps = [":libc-0.2.155"],
+        ),
+        "macos-x86_64": dict(
+            deps = [":libc-0.2.155"],
+        ),
+        "windows-gnu": dict(
+            deps = [":windows-sys-0.52.0"],
+        ),
+        "windows-msvc": dict(
+            deps = [":windows-sys-0.52.0"],
+        ),
+    },
+    visibility = [],
+    deps = [":cfg-if-1.0.0"],
+)
+
+http_archive(
     name = "fixedbitset-0.4.2.crate",
     sha256 = "0ce7134b9999ecaf8bcd65542e436736ef32ddca1b3e06094cb6ec5755203b80",
     strip_prefix = "fixedbitset-0.4.2",
@@ -952,6 +990,12 @@ third_party_rust.rust_library(
     crate_root = "fixedbitset-0.4.2.crate/src/lib.rs",
     edition = "2015",
     visibility = [],
+)
+
+alias(
+    name = "flate2",
+    actual = ":flate2-1.0.30",
+    visibility = ["PUBLIC"],
 )
 
 http_archive(
@@ -1703,6 +1747,7 @@ third_party_rust.rust_library(
         "general",
         "ioctl",
         "no_std",
+        "std",
     ],
     visibility = [],
 )
@@ -2832,11 +2877,13 @@ third_party_rust.rust_binary(
     deps = [
         ":clap-4.5.7",
         ":console-subscriber-0.2.0",
+        ":flate2-1.0.30",
         ":hex-0.4.3",
         ":prost-0.12.6",
         ":prost-types-0.12.6",
         ":redb-2.1.1",
         ":sha2-0.10.8",
+        ":tar-0.4.41",
         ":tokio-1.38.0",
         ":tokio-stream-0.1.15",
         ":tonic-0.11.0",
@@ -3298,6 +3345,60 @@ third_party_rust.rust_library(
     crate_root = "sync_wrapper-0.1.2.crate/src/lib.rs",
     edition = "2018",
     visibility = [],
+)
+
+alias(
+    name = "tar",
+    actual = ":tar-0.4.41",
+    visibility = ["PUBLIC"],
+)
+
+http_archive(
+    name = "tar-0.4.41.crate",
+    sha256 = "cb797dad5fb5b76fcf519e702f4a589483b5ef06567f160c392832c1f5e44909",
+    strip_prefix = "tar-0.4.41",
+    urls = ["https://static.crates.io/crates/tar/0.4.41/download"],
+    visibility = [],
+)
+
+third_party_rust.rust_library(
+    name = "tar-0.4.41",
+    srcs = [":tar-0.4.41.crate"],
+    crate = "tar",
+    crate_root = "tar-0.4.41.crate/src/lib.rs",
+    edition = "2021",
+    features = [
+        "default",
+        "xattr",
+    ],
+    platform = {
+        "linux-arm64": dict(
+            deps = [
+                ":libc-0.2.155",
+                ":xattr-1.3.1",
+            ],
+        ),
+        "linux-x86_64": dict(
+            deps = [
+                ":libc-0.2.155",
+                ":xattr-1.3.1",
+            ],
+        ),
+        "macos-arm64": dict(
+            deps = [
+                ":libc-0.2.155",
+                ":xattr-1.3.1",
+            ],
+        ),
+        "macos-x86_64": dict(
+            deps = [
+                ":libc-0.2.155",
+                ":xattr-1.3.1",
+            ],
+        ),
+    },
+    visibility = [],
+    deps = [":filetime-0.2.23"],
 )
 
 http_archive(
@@ -4432,4 +4533,34 @@ third_party_rust.rust_library(
     crate_root = "windows_x86_64_msvc-0.52.5.crate/src/lib.rs",
     edition = "2021",
     visibility = [],
+)
+
+http_archive(
+    name = "xattr-1.3.1.crate",
+    sha256 = "8da84f1a25939b27f6820d92aed108f83ff920fdf11a7b19366c27c4cda81d4f",
+    strip_prefix = "xattr-1.3.1",
+    urls = ["https://static.crates.io/crates/xattr/1.3.1/download"],
+    visibility = [],
+)
+
+third_party_rust.rust_library(
+    name = "xattr-1.3.1",
+    srcs = [":xattr-1.3.1.crate"],
+    crate = "xattr",
+    crate_root = "xattr-1.3.1.crate/src/lib.rs",
+    edition = "2021",
+    features = [
+        "default",
+        "unsupported",
+    ],
+    platform = {
+        "linux-arm64": dict(
+            deps = [":linux-raw-sys-0.4.14"],
+        ),
+        "linux-x86_64": dict(
+            deps = [":linux-raw-sys-0.4.14"],
+        ),
+    },
+    visibility = [],
+    deps = [":rustix-0.38.34"],
 )

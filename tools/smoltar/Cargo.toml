@@ -1,0 +1,20 @@
+[package]
+name = "buck2-smoltar"
+description = "Very small and simple tar utility"
+default-run = "buck2-smoltar"
+
+version = { workspace = true }
+license = { workspace = true }
+rust-version = { workspace = true }
+edition = { workspace = true }
+
+[[bin]]
+name = "buck2-smoltar"
+path = "main.rs"
+
+[dependencies]
+flate2.workspace = true
+tar.workspace = true
+
+[build-dependencies]
+tonic-build.workspace = true
