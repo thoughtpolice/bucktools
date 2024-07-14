@@ -13,12 +13,6 @@ alias(
     visibility = ["PUBLIC"],
 )
 
-python_bootstrap_binary(
-    name = 'sync.py',
-    main = 'synchronize.py',
-    visibility = [ 'PUBLIC' ],
-)
-
 # XXX: normal reindeer-generated code below
 
 http_archive(
