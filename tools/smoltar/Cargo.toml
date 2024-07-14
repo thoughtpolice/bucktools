@@ -15,6 +15,3 @@ path = "main.rs"
 [dependencies]
 flate2.workspace = true
 tar.workspace = true
-
-[build-dependencies]
-tonic-build.workspace = true
