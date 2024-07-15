@@ -9,7 +9,7 @@ toolchain_alias(
     }),
 )
 
-DEFAULT_RUST_TOOLCHAIN = 'rustc-nightly-2024-07-11'
+DEFAULT_RUST_TOOLCHAIN = 'rustc-nightly-2024-07-14'
 
 common_rustc_flags = select({
     'config//os:windows': [
@@ -45,6 +45,18 @@ vendored_rust_toolchain(
         "-Clto=false",
         "-Ccodegen-units=1",
     ],
+)
+
+download_rust_toolchain(
+    name = 'nightly-2024-07-14',
+    channel = 'nightly',
+    version = '2024-07-14',
+    hashes = [
+        ('aarch64-unknown-linux-gnu', 'b6e7223039ebbfbba9fa9d2a4ded5a5f8e27692324d91ae84c2fdee4736f5136'),
+        ('aarch64-apple-darwin', 'be1317cd4dc96d0495f4b8dc96b82c1e7f004111c969e09d52622d8c4f5c557b'),
+        ('x86_64-unknown-linux-gnu', '14349438eccbc9762d3a15f50af23ae1a5b475b972e045b83f8914ea26a141de'),
+        ('x86_64-pc-windows-msvc', 'da70030bff58aca97bdd2518fbdfc341c2566c053e5ad1255e11205d88a8117f'),
+    ]
 )
 
 download_rust_toolchain(
