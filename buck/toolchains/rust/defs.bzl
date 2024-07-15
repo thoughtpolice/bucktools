@@ -108,7 +108,7 @@ vendored_rust_toolchain = rule(
     is_toolchain_rule = True,
 )
 
-def download_rust_toolchain(name, channel, version, hashes):
+def download_rust_toolchain(name: str , channel: str, version: str, hashes: list[(str, str)]):
     if channel not in ('stable', 'nightly'):
         fail(f"Invalid channel: {channel}")
 
