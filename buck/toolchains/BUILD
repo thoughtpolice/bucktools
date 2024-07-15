@@ -18,3 +18,8 @@ toolchain_alias(
     name = 'cxx',
     actual = 'toolchains//cxx:cxx',
 )
+
+toolchain_alias(
+    name = 'deno',
+    actual = 'toolchains//deno:deno',
+)
