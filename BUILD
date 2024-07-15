@@ -1,8 +1,12 @@
 
+TOOLS = {
+    'buck2-cache-server': '//tools/cache-server:cache-server',
+    'buck2-smoltar':      '//tools/smoltar:smoltar',
+}
+
 filegroup(
     name = 'bucktools',
     srcs = {
-        'buck2-cache-server.exe': '//tools/cache-server:cache-server',
-        'buck2-smoltar.exe': '//tools/smoltar:smoltar',
+        f'{name}.exe': tgt for name, tgt in TOOLS.items()
     },
 )
