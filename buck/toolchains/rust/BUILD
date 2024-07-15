@@ -9,7 +9,7 @@ toolchain_alias(
     }),
 )
 
-DEFAULT_RUST_TOOLCHAIN = 'rustc-nightly-2024-07-14'
+DEFAULT_RUST_TOOLCHAIN = 'rustc-nightly-2024-07-11'
 
 common_rustc_flags = select({
     'config//os:windows': [
