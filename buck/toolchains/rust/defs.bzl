@@ -48,6 +48,7 @@ def _vendored_rust_toolchain_impl(ctx):
     rustc = rustc_download.project(f'rustc/bin/rustc{binary_extension}')
     rustdoc = rustc_download.project(f'rustc/bin/rustdoc{binary_extension}')
     cargo = rustc_download.project(f'cargo/bin/cargo{binary_extension}')
+    rust_analyzer = rustc_download.project(f'rust-analyzer-preview/bin/rust-analyzer{binary_extension}')
     sysroot_path = rustc_download.project(f'rust-std-{triple}')
 
     return [
@@ -57,6 +58,7 @@ def _vendored_rust_toolchain_impl(ctx):
                 'rustc': [ DefaultInfo( default_output = rustc ), RunInfo( args = cmd_args([rustc]) ) ],
                 'rustdoc': [ DefaultInfo( default_output = rustdoc ), RunInfo( args = cmd_args([rustdoc]) ) ],
                 'cargo': [ DefaultInfo( default_output = cargo ), RunInfo( args = cmd_args([cargo]) ) ],
+                'rust-analyzer': [ DefaultInfo( default_output = rust_analyzer ), RunInfo( args = cmd_args([rust_analyzer]) ) ],
             }
         ),
         RustToolchainInfo(
