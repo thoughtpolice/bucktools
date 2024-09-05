@@ -1,32 +1,5 @@
 // buck2-log-server: log storage and retrieval system for buck2 logs
 
-/** @jsx h */
-/** @jsxFrag Fragment */
-import {
-  Fragment as _,
-  h,
-  Node,
-  renderToString as renderHtmlToString,
-} from "https://deno.land/x/jsx@v0.1.5/mod.ts";
-
-import { extract, install } from "https://esm.sh/@twind/core@1.1.3";
-import presetTailwind from "https://esm.sh/@twind/preset-tailwind@1.1.4";
-
-// MARK: Tailwind setup
-install({
-  presets: [
-    presetTailwind(),
-    {
-      theme: {
-        fontFamily: {
-          sans: ["Helvetica", "sans-serif"],
-          serif: ["Times", "serif"],
-        },
-      },
-    },
-  ],
-});
-
 // MARK: Setup
 
 const kv = await Deno.openKv();
@@ -61,7 +34,7 @@ export default {
 
     if (key === "" || key === null) {
       const status = 200;
-      const body = "<!doctype html>" + await ssr(app());
+      const body = "<!doctype html>" + app();
       return new Response(
         body,
         {
@@ -239,12 +212,8 @@ export default {
             }
 
             if (logFormat === "html") {
-              const fdata = await renderHtmlToString(
-                <div>
-                  <p class="">Log uploaded: {data.prefix.join("/")}</p>
-                  <p class="font-bold">Size: {data.size}</p>
-                </div>,
-              );
+              const fdata = `<div><p class="">Log uploaded: ${data.prefix.join("/")}</p><p class="font-bold">Size: ${data.size}</p></div>`;
+
               controller.enqueue(
                 new TextEncoder().encode(
                   `event: logupload\ndata: ${fdata}\n\n`,
@@ -270,38 +239,24 @@ export default {
       });
       return new Response(body, { headers });
     } else {
-      // MARK: Invalid request
       return new Response("Invalid request", { status: 404 });
     }
   },
 };
 
-// MARK: SSR setup
-async function ssr(ns: Node<unknown>): Promise<string> {
-  const body = await renderHtmlToString(ns);
-  const { html, css } = extract(body);
-  return html.replace("</head>", `<style data-twind>${css}</style></head>`);
-}
-
-// MARK: HTML App
-function app(): Node<unknown> {
-  return (
+// MARK: HTML
+function app(): string {
+  return `
     <html lang="en">
       <head>
         <meta charset="utf-8" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title>Buck2 Logs</title>
       </head>
-      <body class="font-sans">
+      <body>
         <div>
-          <h2 class="text(2xl blue-500)">Log uploads</h2>
-          <div
-            hx-ext="sse"
-            sse-connect="http://localhost:8000/v1/watch?fmt=html"
-          >
+          <h2>Log uploads</h2>
+          <div hx-ext="sse" sse-connect="http://localhost:8000/v1/watch?fmt=html">
             <div sse-swap="logupload" hx-swap="afterbegin">
             </div>
           </div>
@@ -320,5 +275,5 @@ function app(): Node<unknown> {
         </script>
       </body>
     </html>
-  );
+  `;
 }
