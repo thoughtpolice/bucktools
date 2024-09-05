@@ -17,7 +17,15 @@ use crate::protos::google::longrunning::operations_server::OperationsServer;
 const FILE_DESCRIPTOR_SET: &[u8] =
     include_bytes!(concat!(env!("PROTOBUFS"), "/reapi_descriptor.bin"));
 
-pub async fn start_reapi_grpc(address: SocketAddr) -> Result<(), Box<dyn std::error::Error>> {
+pub struct ReapiGrpcSettings {
+    pub address: SocketAddr,
+    pub tls_key: Option<String>,
+    pub tls_cert: Option<String>,
+}
+
+pub async fn start_reapi_grpc(
+    settings: ReapiGrpcSettings,
+) -> Result<(), Box<dyn std::error::Error>> {
     use crate::service;
 
     let (health_reporter, health_service) = tonic_health::server::health_reporter();
@@ -44,7 +52,7 @@ pub async fn start_reapi_grpc(address: SocketAddr) -> Result<(), Box<dyn std::er
         .add_service(OperationsServer::new(operations_service))
         .add_service(health_service)
         .add_service(reflection_service)
-        .serve(address)
+        .serve(settings.address)
         .await?;
     Ok(())
 }
@@ -69,4 +77,17 @@ async fn report_service_status(mut reporter: tonic_health::server::HealthReporte
             .set_serving::<ByteStreamServer<service::ByteStreamService>>()
             .await;
     }
+}
+
+// XXX FIXME (aseipp): just a placeholder for now to make sure the openssl build
+// works
+fn _make_tls_acceptor(tls_cert: &str, tls_key: &str) {
+    use openssl::ssl::{select_next_proto, SslAcceptor, SslFiletype, SslMethod};
+    let mut acceptor = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
+    acceptor
+        .set_private_key_file(tls_key, SslFiletype::PEM)
+        .unwrap();
+    acceptor.set_certificate_chain_file(tls_cert).unwrap();
+    acceptor.check_private_key().unwrap();
+    let acceptor = acceptor.build();
 }

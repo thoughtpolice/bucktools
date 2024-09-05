@@ -20,6 +20,14 @@ struct Cli {
     /// `tracing` filter for the console logs.
     #[clap(long, default_value = "info")]
     console_log: String,
+
+    /// TLS key
+    #[clap(long)]
+    tls_key: Option<String>,
+
+    /// TLS certificate
+    #[clap(long)]
+    tls_cert: Option<String>,
 }
 
 #[tokio::main]
@@ -37,11 +45,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .init();
 
     let address = cli.address.parse().unwrap();
+
     tracing::info!(
         message = "Starting buck2-cache-server",
         address = format!("{}", address)
     );
-    reapi_grpc::start_reapi_grpc(address).await?;
+
+    reapi_grpc::start_reapi_grpc(reapi_grpc::ReapiGrpcSettings {
+        address,
+        tls_key: cli.tls_key,
+        tls_cert: cli.tls_cert,
+    })
+    .await?;
     Ok(())
 }
 

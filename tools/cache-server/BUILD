@@ -13,6 +13,7 @@ rust_binary(
         'third-party//rust:clap',
         'third-party//rust:console-subscriber',
         'third-party//rust:hex',
+        'third-party//rust:openssl',
         'third-party//rust:prost',
         'third-party//rust:prost-types',
         'third-party//rust:redb',

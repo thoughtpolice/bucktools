@@ -26,10 +26,6 @@ jobs:
     name: build buck2 binaries
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
-      - name: (Linux) Install Mold
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update && sudo apt-get install -y mold
       - name: Install DotSlash
         uses: ./.github/actions/install-dotslash
       # FIXME (aseipp): use 'buck2' out of `$PATH` after we have dotslash .exe
