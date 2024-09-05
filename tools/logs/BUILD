@@ -12,7 +12,7 @@ deno_binary(
 
 deno_binary(
     name = 'log-server',
-    main = 'server.tsx',
+    main = 'server.ts',
     type = 'serve',
     permissions = [ 'net' ],
     unstable_features = [ 'kv' ],
